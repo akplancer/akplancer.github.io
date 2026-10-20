@@ -1,0 +1,424 @@
+---
+import Case from '../../layouts/Case.astro';
+import Pic from '../../components/Pic.astro';
+import Objective from '../../components/case/Objective.astro';
+import Scatter from '../../components/case/Scatter.astro';
+import { caseBySlug } from '../../data/cases';
+import challenges from '../../assets/onboarding/challenges.png';
+import arrow from '../../assets/onboarding/arrow.png';
+import splash from '../../assets/onboarding/screen-splash.png';
+import phone from '../../assets/onboarding/screen-phone.png';
+import language from '../../assets/onboarding/screen-language.png';
+import experience from '../../assets/onboarding/screen-experience.png';
+import exit from '../../assets/onboarding/screen-exit.png';
+import buysSells from '../../assets/onboarding/screen-buys-sells.png';
+import backtested from '../../assets/onboarding/screen-backtested.png';
+import nse from '../../assets/onboarding/screen-nse.png';
+import welcome from '../../assets/onboarding/screen-welcome.png';
+
+const study = caseBySlug('onboarding');
+
+const sameBody =
+  'I brought the core value proposition forward so users could understand what Returns Wealth offers before exploring the app.';
+// Blob positions/sizes from the Figma frame
+const decisions = [
+  { t: '1. Lead with the product', x: 88, y: 3943, w: 566, h: 299, r: '58% 42% 50% 50% / 48% 44% 56% 52%' },
+  { t: '2. Understand user intent early', x: 690, y: 3939, w: 495, h: 321, r: '40% 60% 46% 54% / 38% 54% 46% 62%' },
+  { t: '3. Make education easier to consume', x: 111, y: 4289, w: 521, h: 337, r: '52% 48% 60% 40% / 42% 50% 50% 58%' },
+  { t: '4. Build confidence before activation', x: 690, y: 4296, w: 509, h: 320, r: '46% 54% 42% 58% / 56% 40% 60% 44%' },
+];
+
+const steps = [
+  ['1. Sign up', 'Register using an email address or phone number.'],
+  ['2. Answer questions', 'Share information about market experience, investment budget, and user intent.'],
+  ['3. Understand algos', 'Learn what algos do and how automated trading works.'],
+  ['4. Build confidence', 'Access relevant information about strategies, credibility, and user control.'],
+  ['5. Discover algos', 'Explore strategies that may align with the user’s needs.'],
+  ['6. Activate', 'Move toward the next step with greater clarity.'],
+];
+
+const questions = [
+  'What should users understand before exploring algos?',
+  'How can I explain automated trading without technical jargon?',
+  'What questions would help me understand user intent?',
+  'How can those answers make algo discovery more relevant?',
+  'What information would help build trust?',
+  'How can I move users from understanding the product to taking action?',
+];
+---
+
+<Case
+  study={study}
+  height={7880}
+  description="Onboarding case study for Returns Wealth: simplifying the first 60 seconds of a complex algo-investing product."
+>
+  <section class="brief p" style="--x:63;--y:1009;--w:1006">
+    <h2 class="cs-h">Project Brief</h2>
+    <p class="cs-body">
+      Returns is an algo investing platform for retail users. As the product evolved, most new users were coming
+      specifically to explore algos, but many did not fully understand how automated trading worked.
+    </p>
+    <p class="cs-body">That made onboarding one of the most critical moments in the product.</p>
+  </section>
+
+  <section class="block p" style="--x:62;--y:1402;--w:1107">
+    <h2 class="cs-h">Problem Statement</h2>
+    <ol class="cs-list">
+      <li>What an algo is</li>
+      <li>How automated trading works</li>
+      <li>Whether they can trust it</li>
+      <li>What they should do next</li>
+    </ol>
+  </section>
+  <p class="cs-body cs-strong p" style="--x:63;--y:1678;--w:1138">
+    *The existing onboarding did not explain the core value early enough, which could create hesitation before users
+    reached algo discovery and activation.
+  </p>
+
+  <Objective
+    x={67}
+    y={1874}
+    intro="Design an onboarding experience that helps users:"
+    rows={[
+      [
+        ['Understand the product within the first minute', 594],
+        ['Build confidence in the platform', 448],
+      ],
+      [
+        ['Feel that the product is relevant to them', 529],
+        ['Understand user intent after sign-up.', 513],
+      ],
+      [['Move naturally toward their first algo activation', 646]],
+    ]}
+  />
+
+  <Scatter
+    heading="Challenges"
+    headingY={2306}
+    img={challenges}
+    imgBox={[419, 2358, 436]}
+    alt="Illustration: a cow pushing a huge boulder up a hill"
+    labels={[
+      ['Simplifying Education', 176, 2391],
+      ['Building Trust', 769, 2481],
+      ['Understanding User Intent', 183, 2598],
+      ['Reducing Friction', 865, 2598],
+    ]}
+  />
+
+  <section class="block p" style="--x:64;--y:2846;--w:1107">
+    <h2 class="cs-h">Questions I started with</h2>
+    <p class="cs-body cs-strong">Before designing the screens, I considered a few key questions:</p>
+    <ol class="cs-list">
+      {questions.map((q) => <li>{q}</li>)}
+    </ol>
+    <p class="cs-body after-list">These questions shaped the direction of the onboarding experience.</p>
+  </section>
+
+  <section class="band insight p" style="--x:0;--y:3340;--w:1280">
+    <div class="callout">
+      <h2 class="cs-h">Insight</h2>
+      <p class="cs-body">
+        Users did not need to understand the technical logic behind an algo.<br />
+        They needed to understand:<br />
+        What it does for them.
+      </p>
+      <p class="cs-body">
+        So instead of explaining trading systems, the experience focused on simple outcomes.<br />
+        Users need clarity about the product and relevance to their needs.
+      </p>
+    </div>
+  </section>
+
+  <div class="solution p cs-center" style="--x:0;--y:3784;--w:1280">
+    <h2 class="cs-h">The solution</h2>
+    <p class="cs-body sol-sub">I structured the onboarding experience around four key design decisions.</p>
+  </div>
+
+  <ul class="decisions desk-contents" role="list">
+    {
+      decisions.map((d) => (
+        <li class="blob p" style={`--x:${d.x};--y:${d.y};--w:${d.w};--bh:${d.h};border-radius:${d.r}`}>
+          <h3>{d.t}</h3>
+          <p>{sameBody}</p>
+        </li>
+      ))
+    }
+  </ul>
+
+  <p class="cs-body cs-center p" style="--x:200;--y:4745;--w:880">
+    The journey connected sign-up, intent gathering, product education, and algo discovery into a more guided experience.
+  </p>
+
+  <ol class="journey p" style="--x:88;--y:4879;--w:1104" role="list">
+    <li class="row">
+      <div class="step"><h3>{steps[0][0]}</h3><p>{steps[0][1]}</p></div>
+      <span class="arr" aria-hidden="true"></span>
+      <div class="step"><h3>{steps[1][0]}</h3><p>{steps[1][1]}</p></div>
+    </li>
+    <li class="row">
+      <span class="arr lead" style="--aw:242" aria-hidden="true"></span>
+      <div class="step"><h3>{steps[2][0]}</h3><p>{steps[2][1]}</p></div>
+      <span class="arr" aria-hidden="true"></span>
+      <div class="step"><h3>{steps[3][0]}</h3><p>{steps[3][1]}</p></div>
+    </li>
+    <li class="row">
+      <span class="arr lead" style="--aw:233" aria-hidden="true"></span>
+      <div class="step"><h3>{steps[4][0]}</h3><p>{steps[4][1]}</p></div>
+      <span class="arr" aria-hidden="true"></span>
+      <div class="step"><h3>{steps[5][0]}</h3><p>{steps[5][1]}</p></div>
+    </li>
+  </ol>
+
+  <section class="screens desk-contents" aria-label="Key onboarding screens">
+    <h2 class="cs-body cs-strong p" style="--x:62;--y:5608;--w:600">Key Onboarding Screens</h2>
+
+    <div class="shots desk-contents">
+      <Pic src={splash} alt="Splash screen: “Wealth on autopilot, managed by experts”" x={46} y={5676} w={241} class="shot" mobile="46vw" />
+      <Pic src={arrow} alt="" x={285} y={5880} w={57} class="desk-only" />
+      <p class="note p" style="--x:345;--y:5850;--w:223">Splash screen — introduce automated algo trading</p>
+      <Pic src={phone} alt="Log in / sign up screen asking for a phone number, with keypad" x={694} y={5676} w={263} class="shot" mobile="46vw" />
+      <Pic src={arrow} alt="" x={936} y={5881} w={57} class="desk-only" />
+      <p class="note p" style="--x:998;--y:5848;--w:224">Enable access via email, Google, or phone number.</p>
+    </div>
+
+    <div class="shots desk-contents">
+      <Pic src={language} alt="Choose your language: English or Hinglish" x={47} y={6211} w={240} class="shot" mobile="46vw" />
+      <Pic src={experience} alt="Describe your investing experience — three options" x={694} y={6211} w={250} class="shot" mobile="46vw" />
+    </div>
+
+    <div class="shots desk-contents">
+      <Pic src={exit} alt="Education screen: “Don’t miss the right exit.”" x={46} y={6768} w={271} class="shot" mobile="46vw" />
+      <Pic src={buysSells} alt="Education screen: “It Buys & Sells trades for you”" x={304} y={6768} w={240} class="shot" mobile="46vw" />
+      <Pic src={backtested} alt="Education screen: “25+ backtested algos — pick one that fits your goals & risk.”" x={555} y={6768} w={245} class="shot" mobile="46vw" />
+      <Pic src={nse} alt="Trust screen: “Powered by an NSE registered algo vendor.”" x={824} y={6768} w={244} class="shot" mobile="46vw" />
+    </div>
+
+    <div class="shots desk-contents">
+      <Pic src={welcome} alt="Welcome aboard: “Let’s automate your investing journey.” with a testimonial" x={48} y={7282} w={253} class="shot" mobile="46vw" />
+    </div>
+  </section>
+</Case>
+
+<style>
+  .after-list {
+    margin-top: calc(14 * var(--u));
+  }
+
+  .insight {
+    height: calc(333 * var(--u));
+    padding: calc(28 * var(--u)) 0 0 calc(63 * var(--u));
+  }
+
+  .insight .callout {
+    width: calc(1100 * var(--u));
+    min-height: calc(273 * var(--u));
+    padding-top: calc(20 * var(--u));
+  }
+
+  .insight .cs-body + .cs-body {
+    margin-top: calc(32 * var(--u));
+  }
+
+  .sol-sub {
+    margin-top: calc(30 * var(--u));
+  }
+
+  .decisions {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .blob {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: calc(16 * var(--u));
+    height: calc(var(--bh) * var(--u));
+    padding: 0 calc(70 * var(--u));
+    background: #fdf0ec;
+    text-align: center;
+  }
+
+  .blob h3 {
+    margin: 0;
+    font-size: calc(20 * var(--u));
+    font-weight: 600;
+    color: var(--ink-2);
+  }
+
+  .blob p {
+    max-width: calc(400 * var(--u));
+    font-size: calc(16 * var(--u));
+    line-height: 1.5;
+  }
+
+  .journey {
+    display: flex;
+    flex-direction: column;
+    gap: calc(48 * var(--u));
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .row {
+    display: flex;
+    align-items: flex-start;
+  }
+
+  .step {
+    flex: none;
+    width: calc(312 * var(--u));
+    min-height: calc(139 * var(--u));
+    padding: calc(22 * var(--u)) calc(20 * var(--u));
+    border-radius: calc(6 * var(--u));
+    background: var(--acc-bg);
+  }
+
+  .step h3 {
+    margin: 0 0 calc(14 * var(--u));
+    font-size: calc(20 * var(--u));
+    font-weight: 600;
+    color: var(--ink-2);
+  }
+
+  .step p {
+    font-size: calc(16 * var(--u));
+    line-height: 1.5;
+  }
+
+  .arr {
+    position: relative;
+    flex: 1;
+    height: calc(7 * var(--u));
+    margin: calc(60 * var(--u)) calc(2 * var(--u)) 0 calc(-2 * var(--u));
+    background: var(--acc);
+  }
+
+  .arr.lead {
+    flex: none;
+    width: calc(var(--aw) * var(--u));
+    margin-left: 0;
+  }
+
+  .arr::after {
+    content: '';
+    position: absolute;
+    right: calc(-4 * var(--u));
+    top: 50%;
+    border-left: calc(40 * var(--u)) solid var(--acc);
+    border-top: calc(22 * var(--u)) solid transparent;
+    border-bottom: calc(22 * var(--u)) solid transparent;
+    transform: translateY(-50%);
+  }
+
+  .note {
+    font-size: calc(18 * var(--u));
+    font-style: italic;
+    font-weight: 500;
+    line-height: calc(32 / 18);
+  }
+
+  @media (max-width: 1023.98px) {
+    .insight {
+      height: auto;
+    }
+
+    .insight .callout {
+      width: auto;
+      min-height: 0;
+      padding-top: 0;
+    }
+
+    .insight .cs-body + .cs-body {
+      margin-top: 14px;
+    }
+
+    .sol-sub {
+      margin-top: 10px;
+    }
+
+    .decisions {
+      display: grid;
+      gap: 14px;
+    }
+
+    .blob {
+      height: auto;
+      gap: 8px;
+      padding: 36px 34px;
+    }
+
+    .blob h3 {
+      font-size: 18px;
+    }
+
+    .blob p {
+      max-width: 340px;
+      font-size: 15px;
+    }
+
+    .journey {
+      gap: 26px;
+    }
+
+    .row {
+      display: contents;
+    }
+
+    .arr {
+      display: none;
+    }
+
+    .step {
+      width: auto;
+      min-height: 0;
+      padding: 16px 18px;
+      border-left: 4px solid var(--acc);
+    }
+
+    .step h3 {
+      margin-bottom: 6px;
+      font-size: 17px;
+    }
+
+    .step p {
+      font-size: 15px;
+    }
+
+    .journey .step {
+      position: relative;
+    }
+
+    .journey .step::before {
+      content: '↓';
+      position: absolute;
+      top: -25px;
+      left: 14px;
+      font-size: 18px;
+      line-height: 1;
+      color: var(--acc);
+    }
+
+    .journey .row:first-child .step:first-child::before {
+      content: none;
+    }
+
+    .screens {
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+    }
+
+    .shots > .note {
+      order: 2;
+      width: 48%;
+      font-size: 15px;
+      line-height: 1.5;
+      color: #444;
+    }
+  }
+</style>

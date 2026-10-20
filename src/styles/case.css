@@ -1,0 +1,345 @@
+/* Shared case-study styles. Desktop sizes are design px × --u; mobile sizes are set below. */
+
+.case {
+  --acc: #cb30e0;
+  --acc-bg: #faf4f9;
+}
+
+.back {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4em;
+  font-size: calc(16 * var(--u));
+  font-weight: 500;
+  text-decoration: none;
+}
+
+.back:hover {
+  text-decoration: underline;
+  text-underline-offset: 0.25em;
+}
+
+.cs-h {
+  font-size: calc(32 * var(--u));
+  font-weight: 500;
+  line-height: 1.1;
+  color: var(--ink-2);
+}
+
+.cs-body {
+  font-size: calc(24 * var(--u));
+  line-height: calc(32 / 24);
+  letter-spacing: -0.005em;
+}
+
+.cs-body + .cs-body {
+  margin-top: calc(32 * var(--u));
+}
+
+.cs-strong {
+  font-weight: 500;
+}
+
+.cs-center {
+  text-align: center;
+}
+
+.cs-list {
+  padding-left: 1.4em;
+  font-size: calc(24 * var(--u));
+  line-height: calc(38 / 24);
+  letter-spacing: -0.005em;
+}
+
+.cs-list.plain {
+  padding-left: 0;
+  list-style: none;
+}
+
+.cs-label {
+  font-family: var(--font-script);
+  font-size: calc(24 * var(--u));
+  line-height: 1.8;
+  letter-spacing: 0.04em;
+  color: var(--script-grey);
+  white-space: nowrap;
+}
+
+/* accent bar + heading + body (Project Brief) */
+.brief {
+  min-height: calc(275 * var(--u));
+  padding: calc(7 * var(--u)) 0 0 calc(26 * var(--u));
+  border-left: calc(6 * var(--u)) solid var(--acc);
+}
+
+.brief .cs-h,
+.callout .cs-h {
+  margin-bottom: calc(26 * var(--u));
+}
+
+.block .cs-h {
+  margin-bottom: calc(34 * var(--u));
+}
+
+/* full-width tinted band with an accent bar (Insight) */
+.band {
+  background: var(--acc-bg);
+}
+
+.callout {
+  border-left: calc(6 * var(--u)) solid var(--acc);
+  padding-left: calc(20 * var(--u));
+}
+
+/* objective chips */
+.chips {
+  display: flex;
+  flex-direction: column;
+  gap: calc(18 * var(--u));
+}
+
+.chip-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: calc(42 * var(--u));
+}
+
+.chip {
+  display: flex;
+  align-items: center;
+  gap: calc(12 * var(--u));
+  min-width: calc(var(--cw) * var(--u));
+  min-height: calc(56.67 * var(--u));
+  white-space: nowrap;
+  padding: calc(10 * var(--u)) calc(16 * var(--u)) calc(10 * var(--u)) calc(14 * var(--u));
+  background: var(--acc-bg);
+  font-size: calc(24 * var(--u));
+  line-height: calc(32 / 24);
+}
+
+.chip svg {
+  flex: none;
+  width: calc(33 * var(--u));
+  height: calc(36.67 * var(--u));
+  fill: var(--acc);
+}
+
+/* "the solution" process ovals */
+.ovals {
+  display: flex;
+  align-items: center;
+}
+
+.oval {
+  display: grid;
+  place-items: center;
+  width: calc(var(--ow) * var(--u));
+  height: calc(var(--oh) * var(--u));
+  border: 1px solid var(--ink);
+  border-radius: 50%;
+  font-size: calc(24 * var(--u));
+  line-height: 1.2;
+  text-align: center;
+}
+
+/* screen captions */
+.shot-label {
+  font-size: calc(24 * var(--u));
+  line-height: calc(32 / 24);
+}
+
+.shot-note {
+  font-size: calc(24 * var(--u));
+  line-height: calc(32 / 24);
+}
+
+/* footer navigation */
+.case-foot {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  max-width: calc(1280 * var(--u));
+  margin: 0 auto;
+  padding: calc(40 * var(--u)) calc(63 * var(--u)) calc(64 * var(--u));
+  border-top: 1px solid #eee;
+  font-size: calc(18 * var(--u));
+  font-weight: 500;
+}
+
+.case-foot a {
+  text-decoration: none;
+}
+
+.case-foot a:hover {
+  text-decoration: underline;
+  text-underline-offset: 0.25em;
+}
+
+.case-foot .next span {
+  color: var(--acc);
+}
+
+/* ---------- mobile / tablet ---------- */
+@media (max-width: 1023.98px) {
+  .case .stage:not(.fixed) {
+    display: flex;
+    flex-direction: column;
+    gap: 44px;
+    padding: 0 20px 64px;
+  }
+
+  .cs-top {
+    display: flex;
+    flex-direction: column;
+    gap: 22px;
+    margin: 0 -20px;
+    padding: 22px 20px 8px;
+    background-image:
+      linear-gradient(#f1f1f1 1px, transparent 1px), linear-gradient(90deg, #f1f1f1 1px, transparent 1px);
+    background-size: 44px 44px;
+    background-position: -1px -1px;
+  }
+
+  .back {
+    font-size: 15px;
+  }
+
+  .cs-h {
+    font-size: 23px;
+  }
+
+  .cs-body,
+  .cs-list,
+  .chip,
+  .shot-label,
+  .shot-note,
+  .oval {
+    font-size: 17px;
+  }
+
+  .cs-body {
+    line-height: 1.55;
+  }
+
+  .cs-body + .cs-body {
+    margin-top: 14px;
+  }
+
+  .cs-list {
+    line-height: 1.6;
+  }
+
+  .cs-list li + li {
+    margin-top: 6px;
+  }
+
+  .cs-label {
+    font-size: 21px;
+    line-height: 1.4;
+  }
+
+  .brief {
+    min-height: 0;
+    padding: 2px 0 2px 16px;
+    border-left-width: 4px;
+  }
+
+  .brief .cs-h,
+  .callout .cs-h,
+  .block .cs-h {
+    margin-bottom: 14px;
+  }
+
+  .band {
+    margin: 0 -20px;
+    padding: 32px 20px;
+  }
+
+  .callout {
+    padding-left: 16px;
+    border-left-width: 4px;
+  }
+
+  .chips {
+    gap: 10px;
+  }
+
+  .chip-row {
+    gap: 10px;
+  }
+
+  .chip {
+    min-width: 0;
+    min-height: 0;
+    white-space: normal;
+    padding: 10px 14px 10px 12px;
+    gap: 10px;
+    line-height: 1.4;
+  }
+
+  .chip svg {
+    width: 20px;
+    height: 22px;
+  }
+
+  .ovals {
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px !important;
+  }
+
+  .oval {
+    width: auto;
+    height: auto;
+    padding: 14px 24px;
+  }
+
+  .shots {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    gap: 16px 4%;
+  }
+
+  .shots > :not(.pic),
+  .shots > .pic > img {
+    width: 48%;
+  }
+
+  .shots > .shot-note,
+  .shots > .shot-label {
+    width: 100%;
+  }
+
+  .shot-label {
+    font-weight: 500;
+  }
+
+  .shot-note {
+    color: #444;
+  }
+
+  .case-foot {
+    padding: 28px 20px 48px;
+    font-size: 16px;
+  }
+}
+
+@media (min-width: 640px) and (max-width: 1023.98px) {
+  .case .stage:not(.fixed) {
+    padding-inline: 48px;
+  }
+
+  .cs-top,
+  .band {
+    margin-inline: -48px;
+    padding-inline: 48px;
+  }
+
+  .shots > :not(.pic),
+  .shots > .pic > img {
+    width: 30%;
+  }
+}

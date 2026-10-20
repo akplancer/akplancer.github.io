@@ -1,0 +1,160 @@
+---
+import Pic from '../Pic.astro';
+import facesA from '../../assets/home/faces-a.png';
+import facesB from '../../assets/home/faces-b.png';
+import disco from '../../assets/home/disco.png';
+import nest from '../../assets/home/jewel-nest.png';
+import art1 from '../../assets/home/art-1.png';
+import art2 from '../../assets/home/art-2.png';
+import art3 from '../../assets/home/art-3.png';
+import art4 from '../../assets/home/art-4.png';
+import art5 from '../../assets/home/art-5.png';
+import art6 from '../../assets/home/art-6.png';
+import art7 from '../../assets/home/art-7.png';
+
+// Gallery positions are the Figma coordinates relative to this section (design y − 2568).
+const gallery = [
+  { src: art1, x: 63, y: 1305, w: 245, alt: 'Illustration of a woman in glasses at a flower stall piled with marigolds' },
+  { src: art2, x: 340, y: 1305, w: 281, alt: 'Two mice standing among dishes in a kitchen sink' },
+  { src: art3, x: 656, y: 1305, w: 264, alt: 'Grey silhouette of a person standing in a misty field' },
+  { src: art4, x: 956, y: 1305, w: 279, alt: 'Pink lotus-like flowers with Hindi lettering “एक सुंदर बगीचा”' },
+  { src: art5, x: 63, y: 1710, w: 259, alt: 'A sprig of pink bougainvillea' },
+  { src: art6, x: 349, y: 1729, w: 471, alt: 'Painted coastline with a fence and a calm sea' },
+  { src: art7, x: 843, y: 1719, w: 392, alt: 'Table spread with fish on pink plates, red wine, lemons and an orange' },
+];
+---
+
+<section class="stage procreate" style="--h:2548" aria-labelledby="procreate-h">
+  <div class="faces desk-contents">
+    <Pic src={facesA} alt="" x={40} y={43} w={351} class="face-a" mobile="38vw" />
+    <Pic src={facesB} alt="Character sketches: round red-haired faces with different expressions" x={380} y={53} w={586} class="face-b" mobile="56vw" />
+  </div>
+  <p class="note note-faces script p" style="--x:838;--y:105;--w:353">
+    I love character design! In my free time, I enjoy playing around with random shapes and turning them into fun, quirky
+    little characters, each with its own personality and expression.
+  </p>
+  <svg class="arrow p desk-only" style="--x:640;--y:132;--w:190" viewBox="0 0 190 34" aria-hidden="true">
+    <path d="M6 28 C 60 10, 120 8, 182 16" />
+    <path d="M174 10 L183 16 L174 22" />
+  </svg>
+
+  <h2 class="sneak p" id="procreate-h" style="--x:83;--y:522;--w:640">A sneak<br />peek into<br />my procreate</h2>
+
+  <div class="jewels desk-contents">
+    <Pic src={disco} alt="A pink and orange disco ball hanging on a string" x={67} y={847} w={251} mobile="34vw" />
+    <Pic src={nest} alt="A crow perched on a nest of gems: a ruby, an emerald, a pearl, a ring and a gold pendant" x={694} y={777} w={549} mobile="58vw" />
+    <p class="note note-jewels script p" style="--x:308;--y:922;--w:353">
+      I’ve worked as a jewellery designer before, and my love for gems and jewellery is real!
+    </p>
+    <svg class="arrow p desk-only" style="--x:620;--y:964;--w:115" viewBox="0 0 115 34" aria-hidden="true">
+      <path d="M108 20 C 80 12, 40 12, 9 18" />
+      <path d="M17 12 L8 18 L17 24" />
+    </svg>
+  </div>
+
+  <div class="gallery desk-contents">
+    {gallery.map((g) => <Pic src={g.src} alt={g.alt} x={g.x} y={g.y} w={g.w} class="art" mobile="46vw" />)}
+  </div>
+</section>
+
+<style>
+  .note {
+    font-size: calc(20 * var(--u));
+    line-height: 1.8;
+    letter-spacing: 0.04em;
+  }
+
+  .arrow {
+    overflow: visible;
+  }
+
+  .arrow path {
+    fill: none;
+    stroke: var(--ink);
+    stroke-width: 1.2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+
+  .sneak {
+    font-size: calc(106 * var(--u));
+    font-weight: 500;
+    line-height: 1.21;
+    letter-spacing: -0.04em;
+  }
+
+  .gallery :global(.art) {
+    transition: transform 0.25s ease;
+  }
+
+  .gallery :global(.art:hover) {
+    transform: scale(1.02) rotate(-0.6deg);
+  }
+
+  @media (max-width: 1023.98px) {
+    .procreate {
+      display: flex;
+      flex-direction: column;
+      gap: 28px;
+      padding: 88px 20px 96px;
+    }
+
+    .sneak {
+      order: -1;
+      font-size: clamp(46px, 12.5vw, 84px);
+      line-height: 1.05;
+    }
+
+    .faces {
+      display: flex;
+      align-items: flex-start;
+      justify-content: center;
+      gap: 4%;
+    }
+
+    .faces :global(.face-a) {
+      width: 38%;
+    }
+
+    .faces :global(.face-b) {
+      width: 56%;
+    }
+
+    .note {
+      max-width: 340px;
+      margin: 0 auto;
+      font-size: 19px;
+      line-height: 1.7;
+      text-align: center;
+    }
+
+    .jewels {
+      display: grid;
+      grid-template-columns: 36% 1fr;
+      align-items: center;
+      gap: 12px 4%;
+    }
+
+    .jewels .note {
+      grid-column: 1 / -1;
+      grid-row: 2;
+    }
+
+    .gallery {
+      columns: 2;
+      column-gap: 12px;
+    }
+
+    .gallery :global(.art) {
+      width: 100%;
+      margin-bottom: 12px;
+      break-inside: avoid;
+    }
+  }
+
+  @media (min-width: 640px) and (max-width: 1023.98px) {
+    .gallery {
+      columns: 3;
+    }
+  }
+</style>

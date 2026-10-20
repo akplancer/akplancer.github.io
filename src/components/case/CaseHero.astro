@@ -1,0 +1,58 @@
+---
+// Title, one-line result and hero illustration of a case study, on the faint grid.
+// `offset` shifts everything up so the desktop window preview can start at design y = 59.
+import Pic from '../Pic.astro';
+import type { CaseStudy } from '../../data/cases';
+
+interface Props {
+  study: CaseStudy;
+  offset?: number;
+  headingLevel?: 'h1' | 'h2';
+  eager?: boolean;
+}
+
+const { study, offset = 0, headingLevel = 'h1', eager = false } = Astro.props;
+const [hx, hy, hw] = study.heroBox;
+const Heading = headingLevel;
+---
+
+<div class="cs-head p" style={`--x:59;--y:${148 - offset};--w:1100`}>
+  <Heading class="cs-title">{study.title}</Heading>
+  <p class="cs-sub">{study.lead}<span style={`color:${study.accent}`}>{study.highlight}</span></p>
+</div>
+<Pic src={study.hero} alt={study.heroAlt} x={hx} y={hy - offset} w={hw} class="cs-hero-art" eager={eager} />
+
+<style>
+  .cs-head {
+    z-index: 1;
+  }
+
+  .cs-title {
+    font-size: calc(64 * var(--u));
+    font-weight: 500;
+    line-height: 1.21;
+    letter-spacing: 0.015em;
+    color: var(--ink-2);
+  }
+
+  .cs-sub {
+    margin-top: calc(28 * var(--u));
+    font-size: calc(28 * var(--u));
+    font-weight: 500;
+    line-height: calc(36 / 28);
+    letter-spacing: -0.5px;
+  }
+
+  @media (max-width: 1023.98px) {
+    :global(.cs-title:not(.fixed *)) {
+      font-size: clamp(34px, 7vw, 52px);
+      line-height: 1.12;
+    }
+
+    :global(.cs-sub:not(.fixed *)) {
+      margin-top: 14px;
+      font-size: clamp(17px, 3.4vw, 22px);
+      line-height: 1.35;
+    }
+  }
+</style>

@@ -1,0 +1,545 @@
+---
+// "Projects — Things I've Designed": a Mac-style desktop. The dock switches which
+// case study the browser window previews; the window opens that case study.
+import Pic from '../Pic.astro';
+import CaseHero from '../case/CaseHero.astro';
+import { cases } from '../../data/cases';
+import sky from '../../assets/home/sky.png';
+import finder from '../../assets/home/dock-finder.png';
+import trash from '../../assets/home/dock-trash.png';
+import grid from '../../assets/case/grid.png';
+---
+
+<section class="projects" id="projects" aria-labelledby="projects-h">
+  <div class="stage" style="--h:939">
+    <Pic src={sky} alt="" x={-1} y={0} w={1282} class="sky" mobile="100vw" quality={50} />
+
+    <div class="heading desk-contents">
+      <h2 class="projects-h p" id="projects-h" style="--x:0;--y:52;--w:1280">Projects</h2>
+      <p class="script things p" style="--x:0;--y:135;--w:1280">Things I’ve Designed</p>
+    </div>
+
+    <div class="calendar p desk-only" style="--x:65;--y:189;--w:195" aria-hidden="true">
+      <p class="cal-day">Monday</p>
+      <p class="cal-date">20</p>
+      <div class="cal-event">
+        <p class="cal-title">Apple keynote</p>
+        <p class="cal-where">Online</p>
+        <p class="cal-time">11:11-12:12</p>
+      </div>
+    </div>
+
+    <div class="window p" style="--x:339;--y:258;--w:725">
+      <div class="chrome" aria-hidden="true">
+        <span class="light red"></span><span class="light yellow"></span><span class="light green"></span>
+        <span class="arrow">&larr;</span><span class="arrow">&rarr;</span>
+        <span class="url"><span class="url-bar"></span><span class="url-dot"></span><span class="url-dot"></span></span>
+      </div>
+      {
+        cases.map((c, i) => (
+          <a
+            href={c.href}
+            class="win-content"
+            id={`panel-${c.slug}`}
+            role="tabpanel"
+            aria-labelledby={`tab-${c.slug}`}
+            hidden={i !== 0}
+          >
+            <div class="win-body">
+              <div class="stage fixed" style="--h:882">
+                <div class="scope">
+                  <Pic src={grid} alt="" x={0} y={89} w={1280} mobile="90vw" />
+                  <CaseHero study={c} offset={59} headingLevel="h2" eager={i === 0} />
+                </div>
+              </div>
+            </div>
+            <div class="win-footer">
+              <span class="win-name">{c.name}</span>
+              <span class="win-meta">
+                {c.meta.map((m) => (
+                  <span>{m}</span>
+                ))}
+              </span>
+              <span class="win-open" aria-hidden="true">
+                Open <span>&rarr;</span>
+              </span>
+            </div>
+          </a>
+        ))
+      }
+    </div>
+
+    <div class="dock p" style="--x:413;--y:789;--w:453">
+      <Pic src={finder} alt="" w={66} class="dock-finder" mobile="44px" inline />
+      <div class="dock-tabs" role="tablist" aria-label="Case studies">
+        {
+          cases.map((c, i) => (
+            <button
+              type="button"
+              role="tab"
+              class="dock-tab"
+              id={`tab-${c.slug}`}
+              data-case={c.slug}
+              aria-controls={`panel-${c.slug}`}
+              aria-selected={i === 0 ? 'true' : 'false'}
+              tabindex={i === 0 ? 0 : -1}
+              title={c.name}
+            >
+              <Pic src={c.dockIcon} alt={c.name} w={64} mobile="52px" inline />
+            </button>
+          ))
+        }
+      </div>
+      <span class="dock-sep" aria-hidden="true"></span>
+      <Pic src={trash} alt="" w={54} class="dock-trash" mobile="40px" inline />
+    </div>
+  </div>
+</section>
+
+<script>
+  const tabs = [...document.querySelectorAll<HTMLButtonElement>('.dock-tab')];
+  const select = (slug: string, focus = false) => {
+    const tab = tabs.find((t) => t.dataset.case === slug);
+    if (!tab) return;
+    for (const t of tabs) {
+      const on = t === tab;
+      t.setAttribute('aria-selected', String(on));
+      t.tabIndex = on ? 0 : -1;
+      const panel = document.getElementById(t.getAttribute('aria-controls')!);
+      if (panel) panel.hidden = !on;
+    }
+    if (focus) tab.focus();
+  };
+  tabs.forEach((t, i) => {
+    t.addEventListener('click', () => select(t.dataset.case!));
+    t.addEventListener('keydown', (e) => {
+      const d = e.key === 'ArrowRight' ? 1 : e.key === 'ArrowLeft' ? -1 : 0;
+      if (!d) return;
+      e.preventDefault();
+      select(tabs[(i + d + tabs.length) % tabs.length].dataset.case!, true);
+    });
+  });
+  // "Back to desktop" links come back with ?case=<slug>
+  const fromUrl = new URLSearchParams(location.search).get('case');
+  if (fromUrl) select(fromUrl);
+</script>
+
+<style>
+  .projects {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .projects-h {
+    font-size: calc(106 * var(--u));
+    font-weight: 500;
+    line-height: 1.21;
+    letter-spacing: -0.04em;
+    text-align: center;
+  }
+
+  .things {
+    z-index: 1;
+    font-size: calc(44 * var(--u));
+    line-height: 1.8;
+    color: #fff;
+    text-align: center;
+    white-space: nowrap;
+    pointer-events: none;
+  }
+
+  /* ---------- calendar widget ---------- */
+  .calendar {
+    height: calc(202 * var(--u));
+    padding: calc(25 * var(--u)) calc(16 * var(--u)) 0 calc(17 * var(--u));
+    border-radius: calc(28 * var(--u));
+    background: #fff;
+    line-height: 1.21;
+    letter-spacing: -0.02em;
+  }
+
+  .cal-day {
+    font-size: calc(16 * var(--u));
+    font-weight: 500;
+    color: var(--cal-red);
+  }
+
+  .cal-date {
+    font-size: calc(53 * var(--u));
+    font-weight: 500;
+    line-height: 1.05;
+  }
+
+  .cal-event {
+    margin-top: calc(20 * var(--u));
+    padding-left: calc(11 * var(--u));
+    border-left: calc(3 * var(--u)) solid var(--cal-red);
+  }
+
+  .cal-title {
+    font-size: calc(18 * var(--u));
+    font-weight: 600;
+  }
+
+  .cal-where,
+  .cal-time {
+    margin-top: calc(3 * var(--u));
+    font-size: calc(16 * var(--u));
+    font-weight: 500;
+  }
+
+  .cal-time {
+    color: var(--muted);
+  }
+
+  /* ---------- browser window ---------- */
+  .window {
+    z-index: 1;
+    overflow: hidden;
+    border-radius: calc(22 * var(--u));
+    background: #fff;
+    box-shadow: 0 calc(12 * var(--u)) calc(40 * var(--u)) rgb(0 0 0 / 0.18);
+  }
+
+  .chrome {
+    position: relative;
+    display: flex;
+    align-items: center;
+    height: calc(46 * var(--u));
+    padding-left: calc(28 * var(--u));
+    background: var(--chrome);
+  }
+
+  .light {
+    width: calc(14 * var(--u));
+    height: calc(14 * var(--u));
+    margin-right: calc(11 * var(--u));
+    border-radius: 50%;
+  }
+
+  .red {
+    background: #f2343f;
+  }
+
+  .yellow {
+    background: #f0ad32;
+  }
+
+  .green {
+    background: #1fae6c;
+    margin-right: calc(23 * var(--u));
+  }
+
+  .arrow {
+    display: grid;
+    place-items: center;
+    width: calc(21 * var(--u));
+    height: calc(21 * var(--u));
+    margin-right: calc(9 * var(--u));
+    border-radius: 50%;
+    background: #fff;
+    font-size: calc(11 * var(--u));
+    color: #8a8a8a;
+  }
+
+  .url {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: calc(4 * var(--u));
+    width: calc(510 * var(--u));
+    height: calc(22 * var(--u));
+    margin-left: calc(6 * var(--u));
+    padding-right: calc(14 * var(--u));
+    border-radius: 999px;
+    background: #fff;
+  }
+
+  .url-bar {
+    width: calc(18 * var(--u));
+    height: calc(5 * var(--u));
+    margin-right: calc(2 * var(--u));
+    border-radius: 3px;
+    background: #111;
+  }
+
+  .url-dot {
+    width: calc(6 * var(--u));
+    height: calc(6 * var(--u));
+    border-radius: 50%;
+    background: #c9c9c9;
+  }
+
+  .win-content {
+    display: block;
+    color: inherit;
+    text-decoration: none;
+  }
+
+  .win-content[hidden] {
+    display: none;
+  }
+
+  .win-body {
+    padding: 0 calc(74 * var(--u)) 0 calc(76 * var(--u));
+    transition: opacity 0.2s ease;
+  }
+
+  .win-content:hover .win-body {
+    opacity: 0.88;
+  }
+
+  .win-footer {
+    display: flex;
+    align-items: center;
+    height: calc(46 * var(--u));
+    padding: 0 calc(29 * var(--u));
+    background: var(--chrome);
+    font-size: calc(15 * var(--u));
+  }
+
+  .win-name {
+    width: calc(314 * var(--u));
+    font-size: calc(16 * var(--u));
+    font-weight: 600;
+  }
+
+  .win-meta {
+    display: flex;
+    gap: calc(30 * var(--u));
+  }
+
+  .win-open {
+    display: none;
+  }
+
+  .win-content:focus-visible {
+    outline-offset: -4px;
+  }
+
+  /* ---------- dock ---------- */
+  .dock {
+    z-index: 1;
+    display: flex;
+    align-items: center;
+    height: calc(94 * var(--u));
+    padding-left: calc(22 * var(--u));
+    border-radius: calc(16 * var(--u));
+    background: rgb(20 40 0 / 0.45);
+    -webkit-backdrop-filter: blur(14px) saturate(1.3);
+    backdrop-filter: blur(14px) saturate(1.3);
+  }
+
+  .dock :global(.dock-finder) {
+    width: calc(66 * var(--u));
+  }
+
+  .dock-tabs {
+    display: flex;
+    gap: calc(24 * var(--u));
+    margin-left: calc(24 * var(--u));
+  }
+
+  .dock-tab {
+    position: relative;
+    width: calc(64 * var(--u));
+    padding: 0;
+    border: 0;
+    background: none;
+    cursor: pointer;
+    transition: transform 0.2s ease;
+  }
+
+  .dock-tab:hover {
+    transform: translateY(calc(-6 * var(--u))) scale(1.06);
+  }
+
+  .dock-tab::after {
+    content: '';
+    position: absolute;
+    left: 50%;
+    bottom: calc(-9 * var(--u));
+    width: calc(5 * var(--u));
+    height: calc(5 * var(--u));
+    border-radius: 50%;
+    background: rgb(255 255 255 / 0.85);
+    transform: translateX(-50%);
+    opacity: 0;
+    transition: opacity 0.2s ease;
+  }
+
+  .dock-tab[aria-selected='true']::after {
+    opacity: 1;
+  }
+
+  .dock-sep {
+    width: 1px;
+    height: calc(62 * var(--u));
+    margin: 0 calc(8 * var(--u)) 0 calc(24 * var(--u));
+    background: #9f9f9f;
+  }
+
+  .dock :global(.dock-trash) {
+    width: calc(54 * var(--u));
+  }
+
+  /* ---------- mobile / tablet ---------- */
+  @media (max-width: 1023.98px) {
+    .projects .stage {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 64px 16px 48px;
+      isolation: isolate;
+    }
+
+    .projects :global(.sky) {
+      position: absolute;
+      inset: 0;
+      z-index: -1;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: 50% 30%;
+    }
+
+    .heading {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .projects-h {
+      font-size: clamp(60px, 16vw, 96px);
+      line-height: 1;
+    }
+
+    .things {
+      margin-top: -0.25em;
+      font-size: clamp(28px, 7.5vw, 40px);
+      line-height: 1.4;
+    }
+
+    .window {
+      width: 100%;
+      max-width: 640px;
+      margin-top: 28px;
+      border-radius: 16px;
+    }
+
+    /* the chrome keeps its proportions on small screens */
+    .chrome {
+      height: 34px;
+      padding-left: 14px;
+    }
+
+    .light {
+      width: 11px;
+      height: 11px;
+      margin-right: 7px;
+    }
+
+    .green {
+      margin-right: 12px;
+    }
+
+    .arrow {
+      width: 17px;
+      height: 17px;
+      margin-right: 6px;
+      font-size: 9px;
+    }
+
+    .url {
+      flex: 1;
+      width: auto;
+      height: 17px;
+      margin-right: 12px;
+      padding-right: 10px;
+    }
+
+    .url-bar {
+      width: 14px;
+      height: 4px;
+    }
+
+    .url-dot {
+      width: 5px;
+      height: 5px;
+    }
+
+    .win-body {
+      padding: 0 5%;
+    }
+
+    .win-footer {
+      justify-content: space-between;
+      height: 44px;
+      padding: 0 16px;
+      font-size: 14px;
+    }
+
+    .win-name {
+      width: auto;
+      font-size: 15px;
+    }
+
+    .win-meta {
+      display: none;
+    }
+
+    .win-open {
+      display: inline-flex;
+      gap: 4px;
+      font-size: 14px;
+      font-weight: 500;
+    }
+
+    .dock {
+      height: auto;
+      margin-top: 22px;
+      padding: 10px 12px;
+      border-radius: 18px;
+    }
+
+    .dock :global(.dock-finder) {
+      width: 48px;
+    }
+
+    .dock-tabs {
+      gap: 12px;
+      margin-left: 12px;
+    }
+
+    .dock-tab {
+      width: 50px;
+    }
+
+    .dock-tab::after {
+      bottom: -7px;
+      width: 4px;
+      height: 4px;
+    }
+
+    .dock-sep {
+      height: 44px;
+      margin: 0 6px 0 12px;
+    }
+
+    .dock :global(.dock-trash) {
+      width: 40px;
+    }
+  }
+
+  @media (max-width: 359.98px) {
+    .dock :global(.dock-finder),
+    .dock-sep,
+    .dock :global(.dock-trash) {
+      display: none;
+    }
+
+    .dock-tabs {
+      margin-left: 0;
+    }
+  }
+</style>

@@ -1,0 +1,457 @@
+---
+import Pic from '../Pic.astro';
+import { site } from '../../data/site';
+import tree from '../../assets/home/hero-tree.png';
+import dog from '../../assets/home/dog.png';
+import avatar from '../../assets/home/avatar.png';
+import photo from '../../assets/home/photo.png';
+import gridAbout from '../../assets/home/grid-about.png';
+
+---
+
+<section class="stage top" style="--h:1629" aria-label="Introduction">
+  <div class="hero desk-contents">
+    <Pic src={tree} alt="" x={0} y={-1} w={1280} class="tree" mobile="100vw" quality={55} eager />
+
+    <nav class="nav p" style="--x:138;--y:48;--w:1003" aria-label="Main">
+      <a href="#top" class="avatar-link" aria-label="Akanksha Pandey — home">
+        <Pic src={avatar} alt="" w={67} class="avatar" mobile="50px" eager inline />
+      </a>
+      <button class="menu-btn mobile-only" type="button" aria-expanded="false" aria-controls="nav-links">
+        <span class="sr-only">Menu</span>
+        <span class="bars" aria-hidden="true"></span>
+      </button>
+      <ul class="links" id="nav-links">
+        <li><a href="#projects">Work</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#contact">Contact</a></li>
+        <li><a class="chat" href="#contact">Let’s chat</a></li>
+      </ul>
+    </nav>
+
+    <div class="intro desk-contents">
+      <p class="name p" style="--x:402.5;--y:337;--w:475">
+        <span class="script">{site.name}</span>
+        <span class="tag">{site.role}</span>
+      </p>
+      <h1 class="tagline p" style="--x:245;--y:406;--w:790">Telling Stories Through Design</h1>
+    </div>
+
+    <Pic src={dog} alt="" x={747} y={689} w={302} class="dog" mobile="46vw" eager />
+  </div>
+
+  <div class="about desk-contents" id="about">
+    <Pic src={gridAbout} alt="" x={0} y={885} w={1280} class="about-grid" mobile="100vw" />
+    <Pic
+      src={photo}
+      alt="Akanksha Pandey smiling at the camera"
+      x={76}
+      y={857}
+      w={326}
+      class="photo"
+      mobile="min(62vw, 300px)"
+    />
+    <h2 class="about-h p" style="--x:485;--y:964;--w:616">A little<br />about me</h2>
+    <p class="bio p" style="--x:515;--y:1248;--w:433">
+      I’ve been an art kid for as long as I can remember, always finding joy in creating things and seeing the world a
+      little differently. I love the little details that make ordinary things interesting. I’ve also always been
+      surrounded by animals, and honestly, I don’t think I’ll ever stop being fascinated by how intelligent they are and
+      all the little things they do.
+    </p>
+  </div>
+</section>
+
+<script>
+  const btn = document.querySelector<HTMLButtonElement>('.menu-btn');
+  const links = document.getElementById('nav-links');
+  if (btn && links) {
+    const set = (open: boolean) => {
+      btn.setAttribute('aria-expanded', String(open));
+      links.classList.toggle('open', open);
+    };
+    btn.addEventListener('click', () => set(btn.getAttribute('aria-expanded') !== 'true'));
+    links.addEventListener('click', (e) => {
+      if ((e.target as HTMLElement).closest('a')) set(false);
+    });
+    document.addEventListener('keydown', (e) => e.key === 'Escape' && set(false));
+  }
+</script>
+
+<style>
+  .top {
+    overflow: hidden;
+  }
+
+  /* shown while the tree image is still downloading, so the pale text stays readable */
+  .top :global(.tree) {
+    background-color: #5b7a2c;
+  }
+
+  /* ---------- nav ---------- */
+  .nav {
+    z-index: 5;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: calc(86 * var(--u));
+    padding: 0 calc(61 * var(--u)) 0 calc(48 * var(--u));
+    border-radius: calc(43 * var(--u));
+    background: rgb(255 255 255 / 0.5);
+    -webkit-backdrop-filter: blur(6px);
+    backdrop-filter: blur(6px);
+  }
+
+  .avatar-link {
+    display: block;
+    align-self: flex-start;
+    margin-top: calc(9 * var(--u));
+  }
+
+  .nav :global(.avatar) {
+    width: calc(67 * var(--u));
+  }
+
+  .links {
+    display: flex;
+    align-items: center;
+    gap: calc(40 * var(--u));
+    padding: 0;
+    list-style: none;
+  }
+
+  .links a {
+    font-size: calc(18 * var(--u));
+    font-weight: 600;
+    line-height: 1;
+    text-decoration: none;
+  }
+
+  .links a:not(.chat):hover {
+    text-decoration: underline;
+    text-underline-offset: 0.25em;
+  }
+
+  .links .chat {
+    display: inline-block;
+    padding: calc(8 * var(--u)) calc(16 * var(--u));
+    border-radius: 999px;
+    background: var(--pink);
+    font-weight: 400;
+    box-shadow: 0 calc(2 * var(--u)) calc(4 * var(--u)) rgb(0 0 0 / 0.18);
+    transition: transform 0.2s ease;
+  }
+
+  .links .chat:hover {
+    transform: translateY(-1px);
+  }
+
+  /* ---------- intro ---------- */
+  .name {
+    z-index: 2;
+    display: flex;
+    align-items: center;
+    gap: calc(20 * var(--u));
+  }
+
+  .name .script {
+    font-size: calc(38 * var(--u));
+    line-height: 1.8;
+    color: var(--cream);
+  }
+
+  .tag {
+    display: inline-flex;
+    align-items: center;
+    height: calc(39 * var(--u));
+    padding: 0 calc(20 * var(--u));
+    background: var(--pink);
+    font-size: calc(18 * var(--u));
+    font-weight: 600;
+    line-height: 1;
+    box-shadow: 0 calc(2 * var(--u)) calc(4 * var(--u)) rgb(0 0 0 / 0.18);
+  }
+
+  .tagline {
+    z-index: 2;
+    font-size: calc(54 * var(--u));
+    font-weight: 500;
+    line-height: 1.2;
+    color: var(--pink);
+    white-space: nowrap;
+  }
+
+  /* ---------- about ---------- */
+  .top :global(.photo) {
+    z-index: 3;
+  }
+
+  .about-h {
+    font-size: calc(106 * var(--u));
+    font-weight: 500;
+    line-height: 1.21;
+    letter-spacing: -0.04em;
+  }
+
+  .bio {
+    font-size: calc(18 * var(--u));
+    line-height: calc(28 / 18);
+    letter-spacing: 0.002em;
+  }
+
+  /* corner brackets around the bio */
+  .bio::before,
+  .bio::after {
+    content: '';
+    position: absolute;
+    width: calc(28.5 * var(--u));
+    height: calc(32.5 * var(--u));
+    border: 0 solid var(--ink);
+  }
+
+  .bio::before {
+    top: calc(-18 * var(--u));
+    right: calc(-21.5 * var(--u));
+    border-top-width: 2px;
+    border-right-width: 2px;
+  }
+
+  .bio::after {
+    bottom: calc(-27.5 * var(--u));
+    left: calc(-30 * var(--u));
+    border-bottom-width: 2px;
+    border-left-width: 2px;
+  }
+
+  /* ---------- mobile / tablet ---------- */
+  @media (max-width: 1023.98px) {
+    .hero {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: min(100svh, 760px);
+      padding: 120px 20px 150px;
+      text-align: center;
+      isolation: isolate;
+    }
+
+    .hero :global(.tree) {
+      position: absolute;
+      inset: 0;
+      z-index: -1;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: 50% 70%;
+    }
+
+    .nav {
+      position: absolute;
+      top: 14px;
+      left: 14px;
+      right: 14px;
+      height: 64px;
+      padding: 0 10px 0 14px;
+      border-radius: 32px;
+    }
+
+    .avatar-link {
+      margin-top: 4px;
+    }
+
+    .nav :global(.avatar) {
+      width: 50px;
+    }
+
+    .menu-btn {
+      display: grid;
+      place-items: center;
+      width: 44px;
+      height: 44px;
+      margin-left: auto;
+      border: 0;
+      border-radius: 50%;
+      background: var(--pink);
+      cursor: pointer;
+    }
+
+    .bars,
+    .bars::before,
+    .bars::after {
+      display: block;
+      width: 18px;
+      height: 2px;
+      background: var(--ink);
+      border-radius: 2px;
+      transition: transform 0.2s ease;
+    }
+
+    .bars {
+      position: relative;
+    }
+
+    .bars::before,
+    .bars::after {
+      content: '';
+      position: absolute;
+      left: 0;
+    }
+
+    .bars::before {
+      top: -6px;
+    }
+
+    .bars::after {
+      top: 6px;
+    }
+
+    .menu-btn[aria-expanded='true'] .bars {
+      background: transparent;
+    }
+
+    .menu-btn[aria-expanded='true'] .bars::before {
+      transform: translateY(6px) rotate(45deg);
+    }
+
+    .menu-btn[aria-expanded='true'] .bars::after {
+      transform: translateY(-6px) rotate(-45deg);
+    }
+
+    .links {
+      position: absolute;
+      top: calc(100% + 8px);
+      right: 0;
+      flex-direction: column;
+      align-items: stretch;
+      gap: 0;
+      min-width: 200px;
+      padding: 8px;
+      border-radius: 20px;
+      background: rgb(255 255 255 / 0.92);
+      -webkit-backdrop-filter: blur(10px);
+      backdrop-filter: blur(10px);
+      box-shadow: 0 10px 30px rgb(0 0 0 / 0.15);
+      opacity: 0;
+      visibility: hidden;
+      transform: translateY(-6px);
+      transition:
+        opacity 0.2s ease,
+        transform 0.2s ease,
+        visibility 0.2s;
+    }
+
+    .links.open {
+      opacity: 1;
+      visibility: visible;
+      transform: none;
+    }
+
+    .links a {
+      display: block;
+      padding: 14px 16px;
+      font-size: 17px;
+      text-align: left;
+    }
+
+    .links .chat {
+      margin-top: 4px;
+      padding: 12px 16px;
+      font-size: 17px;
+      text-align: center;
+    }
+
+    .intro {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .name {
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 6px 12px;
+    }
+
+    .name .script {
+      font-size: clamp(28px, 7vw, 40px);
+      line-height: 1.6;
+      text-shadow: 0 1px 8px rgb(0 0 0 / 0.35);
+    }
+
+    .tag {
+      height: 34px;
+      padding: 0 14px;
+      font-size: 16px;
+    }
+
+    .tagline {
+      max-width: 13ch;
+      font-size: clamp(34px, 9vw, 54px);
+      line-height: 1.1;
+      white-space: normal;
+      text-shadow: 0 2px 14px rgb(0 0 0 / 0.35);
+    }
+
+    .hero :global(.dog) {
+      position: absolute;
+      right: 4%;
+      bottom: 0;
+      width: min(46vw, 300px);
+    }
+
+    .about {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 0 24px 96px;
+      isolation: isolate;
+    }
+
+    .about :global(.about-grid) {
+      position: absolute;
+      inset: 0;
+      z-index: -1;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: top;
+    }
+
+    .about :global(.photo) {
+      width: min(62vw, 300px);
+      margin-top: -72px;
+    }
+
+    .about-h {
+      align-self: stretch;
+      margin: 40px 0 0;
+      font-size: clamp(48px, 13vw, 84px);
+      line-height: 1.05;
+    }
+
+    .bio {
+      position: relative;
+      align-self: stretch;
+      margin: 44px 22px 0;
+      font-size: 17px;
+      line-height: 1.65;
+    }
+
+    .bio::before {
+      top: -18px;
+      right: -18px;
+      width: 24px;
+      height: 28px;
+    }
+
+    .bio::after {
+      bottom: -22px;
+      left: -18px;
+      width: 24px;
+      height: 28px;
+    }
+  }
+</style>

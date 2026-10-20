@@ -1,0 +1,231 @@
+---
+import Case from '../../layouts/Case.astro';
+import Pic from '../../components/Pic.astro';
+import Objective from '../../components/case/Objective.astro';
+import { caseBySlug } from '../../data/cases';
+import screenAll from '../../assets/filter/screen-all.png';
+import screenInvestment from '../../assets/filter/screen-investment.png';
+import screenTrading from '../../assets/filter/screen-trading.png';
+import filtersAll from '../../assets/filter/filters-all.png';
+import filtersInvestment from '../../assets/filter/filters-investment.png';
+import filtersTrading from '../../assets/filter/filters-trading.png';
+import sortSheet from '../../assets/filter/sort-sheet.png';
+
+const study = caseBySlug('filter-and-search');
+
+const questions = [
+  'What information matters most when choosing an algo?',
+  'Which filters help users narrow down their options?',
+  'How can beginners discover relevant strategies without technical knowledge?',
+  'How can experienced traders search more precisely?',
+  'How can we reduce the steps between discovery and activation?',
+];
+---
+
+<Case
+  study={study}
+  height={5760}
+  description="Filter & search case study: redesigning algo discovery with psychology-driven filters and direct search — a 20% increase in activation within the first 5 minutes."
+>
+  <section class="brief p" style="--x:63;--y:1009;--w:1006">
+    <h2 class="cs-h">Project Brief</h2>
+    <p class="cs-body">
+      As the number of algos increased, users had more options but also more difficulty deciding which strategy was
+      right for them.
+    </p>
+    <p class="cs-body">
+      I worked on improving the discovery experience to help users narrow their choices, compare relevant information,
+      and move toward activation with greater confidence.
+    </p>
+  </section>
+
+  <section class="block p" style="--x:62;--y:1352;--w:1107">
+    <h2 class="cs-h">Problem Statement</h2>
+    <p class="cs-body tall">
+      The existing navigation was divided into three broad categories: All, Investment, and Trading. While this structure
+      organized the available algos, users still had to navigate through multiple options to find a strategy that suited
+      them.
+    </p>
+    <p class="cs-body tall">
+      The experience primarily helped users browse what was available, rather than helping them identify what was
+      relevant to them.
+    </p>
+  </section>
+  <p class="cs-body cs-strong p" style="--x:63;--y:1676;--w:1138">
+    *This created decision friction at a critical point in the activation journey.
+  </p>
+
+  <Objective
+    x={67}
+    y={1804}
+    intro="Design a discovery experience that helps users:"
+    rows={[
+      [
+        ['Find suitable algos based on their preferences.', 598],
+        ['Reduce unnecessary browsing.', 444],
+      ],
+      [
+        ['Compare important information easily.', 492],
+        ['Make algo discovery simpler and more intuitive.', 593],
+      ],
+      [['Search directly when they already know what they want.', 724]],
+    ]}
+  />
+
+  <section class="block p" style="--x:64;--y:2216;--w:1107">
+    <h2 class="cs-h">Questions I started with</h2>
+    <p class="cs-body cs-strong">Before designing the screens, I started with questions like:</p>
+    <ol class="cs-list">
+      {questions.map((q) => <li>{q}</li>)}
+    </ol>
+  </section>
+
+  <div class="solution p cs-center" style="--x:0;--y:2659;--w:1280">
+    <h2 class="cs-h">The solution</h2>
+    <p class="cs-body sol-sub">I introduced two key ways for users to discover algos.</p>
+  </div>
+
+  <ul class="ways p" style="--x:106;--y:2817;--w:1067" role="list">
+    <li class="way">
+      <h3>01. Relevant, Psychology-Driven Filters</h3>
+      <p>I added filters designed around the way users evaluate and choose trading strategies.</p>
+      <p class="hl">
+        Instead of requiring users to browse through every available algo, the relevant filters on top helped them narrow
+        their options based on relevant preferences and decision-making criteria.
+      </p>
+    </li>
+    <li class="way">
+      <h3>02. Direct Search</h3>
+      <p>
+        Support users who prefer a faster, more direct route to discovery instead of making them go through the same
+        browsing journey as everyone else.
+      </p>
+    </li>
+  </ul>
+
+  <section class="block p" style="--x:69;--y:3245;--w:1107">
+    <h2 class="cs-h">The New Discovery Experience</h2>
+    <p class="cs-body cs-strong">Before</p>
+    <p class="cs-body tall">All / Investment / Trading → Browse available algos → Find a relevant strategy</p>
+    <p class="cs-body cs-strong after">After</p>
+    <p class="cs-body tall">Choose your approach:</p>
+    <ul class="cs-list approach">
+      <li><em>Filter: Narrow down algos based on relevant preferences.</em></li>
+      <li><em>Search: Find a specific algo directly.</em></li>
+    </ul>
+  </section>
+
+  <section class="screens desk-contents" aria-label="Discovery screens">
+    <div class="shots desk-contents">
+      <Pic src={screenAll} alt="Explore Algos screen on the All tab with filter chips and algo cards" x={74} y={3678} w={235} class="shot" mobile="46vw" />
+      <Pic src={filtersAll} alt="Filters sheet with assets, index, strategy, minimum investment, market cap and risk" x={333} y={3691} w={242} class="shot" mobile="46vw" />
+      <Pic src={sortSheet} alt="Sort bottom sheet: Newly added, Recommended, BNR, Min. Inv., Drawdown" x={617} y={3956} w={267} class="shot" mobile="46vw" />
+    </div>
+    <div class="shots desk-contents">
+      <Pic src={screenInvestment} alt="Explore Algos screen on the Investment tab" x={74} y={4361} w={240} class="shot" mobile="46vw" />
+      <Pic src={filtersInvestment} alt="Filters sheet for investment algos" x={333} y={4374} w={242} class="shot" mobile="46vw" />
+    </div>
+    <div class="shots desk-contents">
+      <Pic src={screenTrading} alt="Explore Algos screen on the Trading tab with active filters" x={73} y={5056} w={243} class="shot" mobile="46vw" />
+      <Pic src={filtersTrading} alt="Filters sheet for trading algos with Apply Filters (6)" x={343} y={5056} w={242} class="shot" mobile="46vw" />
+    </div>
+  </section>
+</Case>
+
+<style>
+  .tall {
+    line-height: calc(38 / 24);
+  }
+
+  .block .tall + .tall {
+    margin-top: 0;
+  }
+
+  .sol-sub {
+    margin-top: calc(30 * var(--u));
+  }
+
+  .ways {
+    display: flex;
+    gap: calc(65 * var(--u));
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .way {
+    flex: 1;
+    height: calc(319 * var(--u));
+    padding: calc(30 * var(--u));
+    border-radius: calc(16 * var(--u));
+    background: var(--acc-bg);
+    font-size: calc(18 * var(--u));
+    line-height: calc(24 / 18);
+  }
+
+  .way h3 {
+    margin: 0 0 calc(14 * var(--u));
+    font-size: calc(20 * var(--u));
+    font-weight: 600;
+    color: var(--ink-2);
+  }
+
+  .way .hl {
+    margin-top: calc(12 * var(--u));
+    padding: calc(4 * var(--u)) calc(2 * var(--u));
+    background: color-mix(in srgb, var(--acc) 45%, white);
+    font-style: italic;
+  }
+
+  .after {
+    margin-top: calc(28 * var(--u)) !important;
+  }
+
+  .approach {
+    padding-left: 1.2em;
+    list-style: disc;
+  }
+
+  @media (max-width: 1023.98px) {
+    .sol-sub {
+      margin-top: 10px;
+    }
+
+    .ways {
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .way {
+      height: auto;
+      padding: 22px 20px;
+      border-radius: 14px;
+      font-size: 16px;
+      line-height: 1.5;
+    }
+
+    .way h3 {
+      margin-bottom: 8px;
+      font-size: 18px;
+    }
+
+    .way .hl {
+      margin-top: 12px;
+      padding: 8px 10px;
+    }
+
+    .block .tall + .tall {
+      margin-top: 10px;
+    }
+
+    .after {
+      margin-top: 18px !important;
+    }
+
+    .screens {
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+    }
+  }
+</style>

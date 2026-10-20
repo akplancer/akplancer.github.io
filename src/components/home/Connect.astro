@@ -1,0 +1,172 @@
+---
+import Pic from '../Pic.astro';
+import { site } from '../../data/site';
+import hamster from '../../assets/home/hamster.png';
+import gmail from '../../assets/home/gmail.png';
+
+// Empty values (see src/data/site.ts) render as inactive buttons rather than broken links.
+const mail = site.email ? `mailto:${site.email}` : undefined;
+const linkedin = site.linkedin || undefined;
+const resume = site.resume || undefined;
+---
+
+<section class="connect" id="contact" aria-labelledby="connect-h">
+  <div class="stage" style="--h:926">
+    <h2 class="connect-h p" id="connect-h" style="--x:255;--y:71;--w:770">Let’s connect</h2>
+    <p class="sub script p" style="--x:113;--y:166;--w:1054">Got An Idea Or Just Wanna Say Hi? My Inbox Is Open!</p>
+
+    <Pic
+      src={hamster}
+      alt="A wide-eyed hamster with a pink bow and a matcha latte, hands folded pleading 🙏"
+      x={400}
+      y={260}
+      w={410}
+      class="hamster"
+      mobile="min(72vw, 360px)"
+    />
+
+    <div class="links desk-contents">
+      <a class="gmail p" style="--x:300;--y:352;--w:152" href={mail} aria-disabled={mail ? undefined : 'true'}>
+        <Pic src={gmail} alt="" w={111} mobile="60px" inline />
+        <span class="sr-only">Email me</span>
+      </a>
+      <a
+        class="pill linkedin p"
+        style="--x:813;--y:457;--w:259"
+        href={linkedin}
+        target={linkedin ? '_blank' : undefined}
+        rel={linkedin ? 'noopener noreferrer' : undefined}
+        aria-disabled={linkedin ? undefined : 'true'}>LINKEDIN</a
+      >
+      <a
+        class="pill resume p"
+        style="--x:165;--y:610;--w:259"
+        href={resume}
+        target={resume ? '_blank' : undefined}
+        rel={resume ? 'noopener' : undefined}
+        aria-disabled={resume ? undefined : 'true'}>Resume</a
+      >
+    </div>
+  </div>
+</section>
+
+<style>
+  .connect {
+    background: var(--rose);
+    overflow: hidden;
+  }
+
+  .connect-h {
+    font-size: calc(106 * var(--u));
+    font-weight: 500;
+    line-height: 1.21;
+    letter-spacing: -0.04em;
+    text-align: center;
+  }
+
+  .sub {
+    z-index: 1;
+    font-size: calc(38 * var(--u));
+    line-height: 1.79;
+    color: var(--script-green);
+    text-align: center;
+  }
+
+  .links a {
+    z-index: 2;
+    text-decoration: none;
+    transition: transform 0.2s ease;
+  }
+
+  .links a[href]:hover {
+    transform: translateY(calc(-3 * var(--u))) rotate(-1.5deg);
+  }
+
+  .links a[aria-disabled='true'] {
+    cursor: default;
+  }
+
+  .gmail {
+    display: grid;
+    place-items: center;
+    height: calc(123 * var(--u));
+    border-radius: calc(16 * var(--u));
+    background: #fff;
+  }
+
+  .gmail :global(img) {
+    width: calc(111 * var(--u));
+  }
+
+  .pill {
+    display: grid;
+    place-items: center;
+    height: calc(71 * var(--u));
+    border-radius: 999px;
+    font-size: calc(42 * var(--u));
+    font-weight: 600;
+    line-height: 1;
+    letter-spacing: -0.04em;
+    color: #fff;
+  }
+
+  .linkedin {
+    background: var(--linkedin);
+  }
+
+  .resume {
+    background: var(--resume);
+  }
+
+  @media (max-width: 1023.98px) {
+    .connect .stage {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 72px 20px 88px;
+      text-align: center;
+    }
+
+    .connect-h {
+      font-size: clamp(52px, 14vw, 96px);
+      line-height: 1.05;
+    }
+
+    .sub {
+      max-width: 520px;
+      margin-top: 8px;
+      font-size: clamp(22px, 5.6vw, 32px);
+      line-height: 1.45;
+    }
+
+    .connect :global(.hamster) {
+      width: min(72vw, 360px);
+      margin-top: 20px;
+    }
+
+    .links {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: center;
+      gap: 14px;
+      margin-top: 28px;
+    }
+
+    .gmail {
+      width: 76px;
+      height: 62px;
+      border-radius: 14px;
+    }
+
+    .gmail :global(img) {
+      width: 52px;
+    }
+
+    .pill {
+      height: 56px;
+      padding: 0 30px;
+      font-size: 26px;
+    }
+  }
+</style>

@@ -1,0 +1,40 @@
+---
+// Case-study page: back link, title + hero on the grid, then the page body
+// (positioned at Figma coordinates on desktop) and a footer with the next case study.
+import Base from './Base.astro';
+import Pic from '../components/Pic.astro';
+import CaseHero from '../components/case/CaseHero.astro';
+import { cases, type CaseStudy } from '../data/cases';
+import { site } from '../data/site';
+import grid from '../assets/case/grid.png';
+import '../styles/case.css';
+
+interface Props {
+  study: CaseStudy;
+  /** desktop stage height in design px */
+  height: number;
+  description: string;
+}
+
+const { study, height, description } = Astro.props;
+const next = cases[(cases.findIndex((c) => c.slug === study.slug) + 1) % cases.length];
+const backHref = `/?case=${study.slug}#projects`;
+---
+
+<Base title={`${study.title} — ${site.name}`} description={description}>
+  <article class="case" style={`--acc:${study.accent};--acc-bg:${study.accentBg}`}>
+    <div class="stage" style={`--h:${height}`}>
+      <Pic src={grid} alt="" x={0} y={148} w={1280} class="desk-only" />
+      <Pic src={grid} alt="" x={0} y={1076} w={1280} class="desk-only" />
+      <div class="cs-top desk-contents">
+        <a class="back p" style="--x:63;--y:50;--w:240" href={backHref}><span aria-hidden="true">&larr;</span> Back to desktop</a>
+        <CaseHero study={study} eager />
+      </div>
+      <slot />
+    </div>
+    <nav class="case-foot" aria-label="Case studies">
+      <a href={backHref}><span aria-hidden="true">&larr;</span> Back to desktop</a>
+      <a class="next" href={next.href}>Next: <span>{next.name}</span> <span aria-hidden="true">&rarr;</span></a>
+    </nav>
+  </article>
+</Base>

@@ -1,0 +1,230 @@
+---
+import Case from '../../layouts/Case.astro';
+import Pic from '../../components/Pic.astro';
+import Objective from '../../components/case/Objective.astro';
+import Scatter from '../../components/case/Scatter.astro';
+import { caseBySlug } from '../../data/cases';
+import palms from '../../assets/referral/palms-w.png';
+import challenges from '../../assets/referral/challenges.png';
+import landing from '../../assets/referral/screen-landing.png';
+import howItWorks from '../../assets/referral/screen-how-it-works.png';
+import contacts from '../../assets/referral/screen-contacts.png';
+import wallet from '../../assets/referral/screen-wallet.png';
+
+const study = caseBySlug('referral');
+
+const questions = [
+  'Where should users discover referrals?',
+  'What should be the primary entry point?',
+  'What kind of reward would actually motivate sharing?',
+  'Should both users be rewarded?',
+  'When should rewards unlock? What happens if a friend signs up but does not subscribe?',
+  'How should referral progress be shown?',
+  'How do we make earning a reward feel satisfying?',
+  'What happens if the referred user cancels?',
+  'How can rewards bring users back into the subscription funnel?',
+];
+---
+
+<Case
+  study={study}
+  height={7540}
+  description="Referral-led growth for Returns: designing a complete refer-and-earn experience that contributed to ~30% of user acquisition."
+>
+  <section class="brief p" style="--x:63;--y:1009;--w:1006">
+    <h2 class="cs-h">Project Brief</h2>
+    <p class="cs-body">
+      Returns wanted to build a product-led referral program that could turn existing users into a meaningful acquisition
+      channel.
+    </p>
+    <p class="cs-body">
+      The goal was not just to create a “Refer &amp; Earn” page, but to build a complete referral experience that felt
+      valuable, transparent, and easy to understand for both the referrer and the referred user.
+    </p>
+  </section>
+
+  <section class="band ws p" style="--x:0;--y:1349;--w:1280">
+    <h2 class="cs-h cs-center p" style="--x:0;--y:53;--w:1280">It has to answer three W’s instantly</h2>
+    <Pic src={palms} alt="" x={500} y={104} w={280} class="palms" mobile="160px" />
+    <ul class="ws-labels desk-contents" role="list">
+      <li class="cs-label p" style="--x:251;--y:157;--w:240">Why Should I Refer?</li>
+      <li class="cs-label p" style="--x:378;--y:313;--w:200">What Do I Get?</li>
+      <li class="cs-label p" style="--x:780;--y:270;--w:220">When Do I Get It?</li>
+    </ul>
+    <p class="cs-body cs-center p" style="--x:0;--y:447;--w:1280">
+      *While still keeping the reward logic financially sustainable for the business.
+    </p>
+  </section>
+
+  <Objective
+    x={63}
+    y={2004}
+    rows={[
+      [
+        ['Creates value for both the referrer and referee', 594],
+        ['Motivates users to invite friends', 448],
+      ],
+      [['Clearly communicates when and why rewards unlock', 689]],
+      [['Keeps users informed about referral progress', 594]],
+      [['Encourages rewards to flow back into product usage and subscriptions', 892]],
+    ]}
+  />
+
+  <Scatter
+    heading="Challenges"
+    headingY={2477}
+    img={challenges}
+    imgBox={[480, 2518, 315]}
+    alt="Illustration: the boy straining to lift a heavy dumbbell"
+    labels={[
+      ['Reward Complexity', 352, 2596],
+      ['Tracking Progress', 712, 2639],
+      ['Building Trust', 241, 2715],
+      ['Preventing Low-Quality Referrals', 796, 2758],
+      ['Different User States', 334, 2834],
+    ]}
+  />
+
+  <section class="block p" style="--x:60;--y:3026;--w:1107">
+    <h2 class="cs-h">Questions I started with</h2>
+    <p class="cs-body cs-strong">Before designing the screens, I started with questions like:</p>
+    <ol class="cs-list">
+      {questions.map((q) => <li>{q}</li>)}
+    </ol>
+  </section>
+  <p class="cs-body cs-strong p" style="--x:60;--y:3530;--w:958">
+    *These questions shifted the project from designing a referral page to designing a complete referral ecosystem.
+  </p>
+
+  <section class="band insight p" style="--x:0;--y:3670;--w:1280">
+    <div class="callout">
+      <h2 class="cs-h">Insight</h2>
+      <p class="cs-body">
+        Users do not refer because a referral feature exists. They refer when the value is clear, the reward feels
+        meaningful, and they trust the process.
+      </p>
+    </div>
+  </section>
+
+  <section class="solution desk-contents">
+    <div class="p cs-center" style="--x:0;--y:3984;--w:1280">
+      <h2 class="cs-h">The solution</h2>
+      <p class="cs-body sol-sub">There wasn’t a straight line to the solution.</p>
+    </div>
+    <ul class="ovals p" style="--x:76;--y:4131;--w:1127;gap:calc(135 * var(--u))" role="list">
+      <li class="oval" style="--ow:262;--oh:75">Market research</li>
+      <li class="oval" style="--ow:326;--oh:93">Information architecture</li>
+      <li class="oval" style="--ow:269;--oh:93">User scenarios</li>
+    </ul>
+    <ul class="ovals p" style="--x:172;--y:4283;--w:936;gap:calc(63 * var(--u))" role="list">
+      <li class="oval" style="--ow:262;--oh:74">Wireframe</li>
+      <li class="oval" style="--ow:279;--oh:93">Iterations</li>
+      <li class="oval" style="--ow:269;--oh:93">Final designs</li>
+    </ul>
+  </section>
+
+  <section class="screens desk-contents" aria-label="Key screens">
+    <p class="cs-body cs-strong p" style="--x:60;--y:4515;--w:1015">
+      Selected screens highlighting the key moments across the Referrer and Referee journeys.
+    </p>
+
+    <div class="shots desk-contents">
+      <p class="shot-label p" style="--x:65;--y:4601;--w:800">1. Landing Page (If clicked on Learn more)</p>
+      <Pic src={landing} alt="Invite a friend & Earn landing screen" x={59} y={4669} w={268} class="shot" mobile="46vw" />
+      <Pic src={howItWorks} alt="“How it works?” bottom sheet explaining the referral steps and rewards" x={427} y={4661} w={280} class="shot" mobile="46vw" />
+    </div>
+
+    <div class="shots desk-contents">
+      <p class="shot-label p" style="--x:65;--y:5425;--w:800">2. Contact list on the landing page</p>
+      <Pic src={contacts} alt="Referral landing page with the contact list and Invite buttons" x={83} y={5505} w={248} class="shot" mobile="46vw" />
+      <p class="shot-note p" style="--x:492;--y:6066;--w:300">List view for contacts</p>
+    </div>
+
+    <div class="shots desk-contents">
+      <p class="shot-label p" style="--x:65;--y:6296;--w:1000">3. Home page when invitations are sent and referrals are at different stages</p>
+      <Pic src={wallet} alt="Referral home page showing Wealth Coins earned and invited people at different stages" x={83} y={6401} w={248} class="shot" mobile="46vw" />
+      <p class="shot-note p" style="--x:544;--y:6976;--w:300">Wallet page</p>
+    </div>
+  </section>
+</Case>
+
+<style>
+  .ws {
+    height: calc(556 * var(--u));
+  }
+
+  .ws :global(.palms) {
+    opacity: 0.2;
+  }
+
+  .insight {
+    height: calc(229 * var(--u));
+    padding: calc(37 * var(--u)) 0 0 calc(63 * var(--u));
+  }
+
+  .insight .callout {
+    width: calc(1000 * var(--u));
+    min-height: calc(150 * var(--u));
+  }
+
+  .sol-sub {
+    margin-top: calc(24 * var(--u));
+  }
+
+  .ws-labels,
+  .ovals {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  @media (max-width: 1023.98px) {
+    .ws {
+      height: auto;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 16px;
+      text-align: center;
+    }
+
+    .ws :global(.palms) {
+      width: 160px;
+    }
+
+    .ws-labels {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 4px 20px;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .insight {
+      height: auto;
+    }
+
+    .insight .callout {
+      width: auto;
+      min-height: 0;
+    }
+
+    .solution {
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+    }
+
+    .sol-sub {
+      margin-top: 10px;
+    }
+
+    .screens {
+      display: flex;
+      flex-direction: column;
+      gap: 36px;
+    }
+  }
+</style>

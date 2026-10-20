@@ -1,0 +1,41 @@
+---
+// "Objective" heading, optional lead-in, and rows of starred chips.
+// Each chip is [text, design width]; rows mirror the Figma wrapping on desktop.
+interface Props {
+  x: number;
+  y: number;
+  intro?: string;
+  rows: [string, number][][];
+}
+
+const { x, y, intro, rows } = Astro.props;
+---
+
+<div class="block p" style={`--x:${x};--y:${y};--w:1127`}>
+  <h2 class="cs-h">Objective</h2>
+  <div class="chips">
+    {intro && <p class="cs-body cs-strong">{intro}</p>}
+    {
+      rows.map((row) => (
+        <ul class="chip-row" role="list">
+          {row.map(([text, w]) => (
+            <li class="chip" style={`--cw:${w}`}>
+              <svg viewBox="0 0 33 37" aria-hidden="true">
+                <path d="M16.5 0l4.4 12.6 12.1.6-9.4 8.3 3.2 13.5-10.3-7.4-10.3 7.4 3.2-13.5L0 13.2l12.1-.6z" />
+              </svg>
+              <span>{text}</span>
+            </li>
+          ))}
+        </ul>
+      ))
+    }
+  </div>
+</div>
+
+<style>
+  .chip-row {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+</style>

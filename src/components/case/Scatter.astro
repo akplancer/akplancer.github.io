@@ -1,0 +1,66 @@
+---
+// A centred heading over an illustration with handwritten labels scattered around it.
+// Desktop keeps the Figma placement; smaller screens list the labels under the art.
+import type { ImageMetadata } from 'astro';
+import Pic from '../Pic.astro';
+
+interface Props {
+  heading: string;
+  headingY: number;
+  img: ImageMetadata;
+  imgBox: [number, number, number];
+  alt: string;
+  labels: [string, number, number][];
+  imgClass?: string;
+}
+
+const { heading, headingY, img, imgBox, alt, labels, imgClass = '' } = Astro.props;
+---
+
+<div class="scatter desk-contents">
+  <h2 class="cs-h cs-center p" style={`--x:0;--y:${headingY};--w:1280`}>{heading}</h2>
+  <Pic src={img} alt={alt} x={imgBox[0]} y={imgBox[1]} w={imgBox[2]} class={`scatter-art ${imgClass}`} mobile="min(70vw, 360px)" />
+  <ul class="labels desk-contents" role="list">
+    {
+      labels.map(([t, x, y]) => (
+        <li class="cs-label p" style={`--x:${x};--y:${y};--w:360`}>
+          {t}
+        </li>
+      ))
+    }
+  </ul>
+</div>
+
+<style>
+  .labels {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  @media (max-width: 1023.98px) {
+    .scatter {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 18px;
+    }
+
+    .scatter :global(.scatter-art) {
+      width: min(70vw, 360px);
+    }
+
+    .labels {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 6px 22px;
+      max-width: 520px;
+    }
+
+    .labels .cs-label {
+      white-space: normal;
+      text-align: center;
+    }
+  }
+</style>
