@@ -10,6 +10,8 @@ import filtersAll from '../../assets/filter/filters-all.png';
 import filtersInvestment from '../../assets/filter/filters-investment.png';
 import filtersTrading from '../../assets/filter/filters-trading.png';
 import sortSheet from '../../assets/filter/sort-sheet.png';
+import bracket from '../../assets/filter/bracket.png';
+import Shot from '../../components/case/Shot.astro';
 
 const study = caseBySlug('filter-and-search');
 
@@ -24,7 +26,7 @@ const questions = [
 
 <Case
   study={study}
-  height={5760}
+  height={5960}
   description="Filter & search case study: redesigning algo discovery with psychology-driven filters and direct search — a 20% increase in activation within the first 5 minutes."
 >
   <section class="brief p" style="--x:63;--y:1009;--w:1006">
@@ -103,31 +105,45 @@ const questions = [
     </li>
   </ul>
 
-  <section class="block p" style="--x:69;--y:3245;--w:1107">
+  <section class="block newdisc p" style="--x:69;--y:3245;--w:1107">
     <h2 class="cs-h">The New Discovery Experience</h2>
-    <p class="cs-body cs-strong">Before</p>
-    <p class="cs-body tall">All / Investment / Trading → Browse available algos → Find a relevant strategy</p>
-    <p class="cs-body cs-strong after">After</p>
-    <p class="cs-body tall">Choose your approach:</p>
-    <ul class="cs-list approach">
-      <li><em>Filter: Narrow down algos based on relevant preferences.</em></li>
-      <li><em>Search: Find a specific algo directly.</em></li>
-    </ul>
+    <div class="nd">
+      <p class="cs-body cs-strong">Before</p>
+      <p class="cs-body tall">All / Investment / Trading → Browse available algos → Find a relevant strategy</p>
+    </div>
+    <div class="nd">
+      <p class="cs-body cs-strong">After</p>
+      <div class="cs-body tall">
+        <p>Choose your approach:</p>
+        <ul class="approach">
+          <li><em>Filter: Narrow down algos based on relevant preferences.</em></li>
+          <li><em>Search: Find a specific algo directly.</em></li>
+        </ul>
+      </div>
+    </div>
   </section>
 
   <section class="screens desk-contents" aria-label="Discovery screens">
+    <p class="cs-body cs-strong p" style="--x:68;--y:3673;--w:1100">
+      These are the key screens for searching, filtering, and sorting.
+    </p>
     <div class="shots desk-contents">
-      <Pic src={screenAll} alt="Explore Algos screen on the All tab with filter chips and algo cards" x={74} y={3678} w={235} class="shot" mobile="46vw" />
-      <Pic src={filtersAll} alt="Filters sheet with assets, index, strategy, minimum investment, market cap and risk" x={333} y={3691} w={242} class="shot" mobile="46vw" />
-      <Pic src={sortSheet} alt="Sort bottom sheet: Newly added, Recommended, BNR, Min. Inv., Drawdown" x={617} y={3956} w={267} class="shot" mobile="46vw" />
-    </div>
-    <div class="shots desk-contents">
-      <Pic src={screenInvestment} alt="Explore Algos screen on the Investment tab" x={74} y={4361} w={240} class="shot" mobile="46vw" />
-      <Pic src={filtersInvestment} alt="Filters sheet for investment algos" x={333} y={4374} w={242} class="shot" mobile="46vw" />
-    </div>
-    <div class="shots desk-contents">
-      <Pic src={screenTrading} alt="Explore Algos screen on the Trading tab with active filters" x={73} y={5056} w={243} class="shot" mobile="46vw" />
-      <Pic src={filtersTrading} alt="Filters sheet for trading algos with Apply Filters (6)" x={343} y={5056} w={242} class="shot" mobile="46vw" />
+      <Shot src={screenAll} alt="Explore Algos screen on the All tab with filter chips and algo cards" x={74} y={3808} w={235} lines={['Algo listing page']} cx={192.5} top={3766} />
+      <Pic src={bracket} alt="" x={307} y={3907} w={42} class="desk-only" />
+      <p class="cap p span-all" style="--x:350;--y:4093;--w:263">
+        <span class="cap-line">Divided into three categories:</span>{' '}
+        <span class="cap-line">All Algos, Investment Algos,</span>{' '}
+        <span class="cap-line">and Trading Algos.</span>{' '}
+        <span class="cap-break" aria-hidden="true"></span>
+        <span class="cap-line em">Filters adapt based on the sele</span>{' '}
+        <span class="cap-line em">cted navigation category.</span>
+      </p>
+      <Shot src={filtersAll} alt="Filters sheet with assets, index, strategy, minimum investment, market cap and risk" x={653} y={3819} w={243} lines={['All Filter page']} cx={765} top={3766} />
+      <Shot src={sortSheet} alt="Sort bottom sheet: Newly added, Recommended, BNR, Min. Inv., Drawdown" x={935} y={4084} w={271} lines={['Sorting remains consistent', 'across all categories.']} cx={1084} top={3766} />
+      <Shot src={screenInvestment} alt="Explore Algos screen on the Investment tab" x={74} y={4526} w={240} lines={['Investment Algos is selected.']} cx={192.5} top={4472} />
+      <Shot src={filtersInvestment} alt="Filters sheet for investment algos" x={565} y={4544} w={243} lines={['Displays filters relevant to', 'investment algos.']} cx={691.5} top={4471} />
+      <Shot src={screenTrading} alt="Explore Algos screen on the Trading tab with active filters" x={73} y={5206} w={243} lines={['Trading Algos is selected.']} cx={193} top={5169} />
+      <Shot src={filtersTrading} alt="Filters sheet for trading algos with Apply Filters (6)" x={582} y={5252} w={242} lines={['Displays filters relevant to', 'Trading algos.']} cx={691.5} top={5168} />
     </div>
   </section>
 </Case>
@@ -141,9 +157,6 @@ const questions = [
     margin-top: 0;
   }
 
-  .sol-sub {
-    margin-top: calc(30 * var(--u));
-  }
 
   .ways {
     display: flex;
@@ -156,7 +169,7 @@ const questions = [
   .way {
     flex: 1;
     height: calc(319 * var(--u));
-    padding: calc(30 * var(--u));
+    padding: calc(34 * var(--u)) calc(22 * var(--u)) calc(30 * var(--u)) calc(30 * var(--u));
     border-radius: calc(16 * var(--u));
     background: var(--acc-bg);
     font-size: calc(18 * var(--u));
@@ -164,7 +177,7 @@ const questions = [
   }
 
   .way h3 {
-    margin: 0 0 calc(14 * var(--u));
+    margin: 0 0 calc(19 * var(--u));
     font-size: calc(20 * var(--u));
     font-weight: 600;
     color: var(--ink-2);
@@ -177,19 +190,22 @@ const questions = [
     font-style: italic;
   }
 
-  .after {
-    margin-top: calc(28 * var(--u)) !important;
+  /* Figma: label, 4px, text — and 34px between the Before and After groups */
+  .newdisc .nd .cs-body + .cs-body {
+    margin-top: calc(4 * var(--u));
+  }
+
+  .newdisc .nd + .nd {
+    margin-top: calc(34 * var(--u));
   }
 
   .approach {
+    margin: 0;
     padding-left: 1.2em;
     list-style: disc;
   }
 
   @media (max-width: 1023.98px) {
-    .sol-sub {
-      margin-top: 10px;
-    }
 
     .ways {
       flex-direction: column;
@@ -218,8 +234,8 @@ const questions = [
       margin-top: 10px;
     }
 
-    .after {
-      margin-top: 18px !important;
+    .newdisc .nd + .nd {
+      margin-top: 18px;
     }
 
     .screens {

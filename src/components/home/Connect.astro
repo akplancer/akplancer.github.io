@@ -10,10 +10,10 @@ const linkedin = site.linkedin || undefined;
 const resume = site.resume || undefined;
 ---
 
-<section class="connect" id="contact" aria-labelledby="connect-h">
+<section class="connect" id="contact" aria-labelledby="connect-h" data-figma="Portfolio- cover › Frame 1814109471">
   <div class="stage" style="--h:926">
     <h2 class="connect-h p" id="connect-h" style="--x:255;--y:71;--w:770">Let’s connect</h2>
-    <p class="sub script p" style="--x:113;--y:166;--w:1054">Got An Idea Or Just Wanna Say Hi? My Inbox Is Open!</p>
+    <p class="sub script title-case p" style="--x:113;--y:166;--w:1054">Got an idea or just wanna say hi? my inbox is open!</p>
 
     <Pic
       src={hamster}
@@ -123,12 +123,12 @@ const resume = site.resume || undefined;
       display: flex;
       flex-direction: column;
       align-items: center;
-      padding: 72px 20px 88px;
+      padding: var(--sec-y) var(--pad-x);
       text-align: center;
     }
 
     .connect-h {
-      font-size: clamp(52px, 14vw, 96px);
+      font-size: var(--display);
       line-height: 1.05;
     }
 

@@ -10,16 +10,16 @@ import trash from '../../assets/home/dock-trash.png';
 import grid from '../../assets/case/grid.png';
 ---
 
-<section class="projects" id="projects" aria-labelledby="projects-h">
+<section class="projects" id="projects" aria-labelledby="projects-h" data-figma="Portfolio- cover › projects">
   <div class="stage" style="--h:939">
     <Pic src={sky} alt="" x={-1} y={0} w={1282} class="sky" mobile="100vw" quality={50} />
 
     <div class="heading desk-contents">
       <h2 class="projects-h p" id="projects-h" style="--x:0;--y:52;--w:1280">Projects</h2>
-      <p class="script things p" style="--x:0;--y:135;--w:1280">Things I’ve Designed</p>
+      <p class="script things title-case p" style="--x:0;--y:135;--w:1280">Things i’ve designed</p>
     </div>
 
-    <div class="calendar p desk-only" style="--x:65;--y:189;--w:195" aria-hidden="true">
+    <div class="calendar p desk-only" style="--x:65;--y:189;--w:195" aria-hidden="true" data-figma="Frame 1814109463">
       <p class="cal-day">Monday</p>
       <p class="cal-date">20</p>
       <div class="cal-event">
@@ -29,7 +29,7 @@ import grid from '../../assets/case/grid.png';
       </div>
     </div>
 
-    <div class="window p" style="--x:339;--y:258;--w:725">
+    <div class="window p" style="--x:339;--y:258;--w:725" data-figma="Group 1410105129">
       <div class="chrome" aria-hidden="true">
         <span class="light red"></span><span class="light yellow"></span><span class="light green"></span>
         <span class="arrow">&larr;</span><span class="arrow">&rarr;</span>
@@ -46,10 +46,10 @@ import grid from '../../assets/case/grid.png';
             hidden={i !== 0}
           >
             <div class="win-body">
-              <div class="stage fixed" style="--h:882">
+              <div class="stage fixed" style="--h:847">
                 <div class="scope">
-                  <Pic src={grid} alt="" x={0} y={89} w={1280} mobile="90vw" />
-                  <CaseHero study={c} offset={59} headingLevel="h2" eager={i === 0} />
+                  <Pic src={grid} alt="" x={0} y={46} w={1280} mobile="90vw" />
+                  <CaseHero study={c} offset={102} headingLevel="h2" eager={i === 0} />
                 </div>
               </div>
             </div>
@@ -69,7 +69,7 @@ import grid from '../../assets/case/grid.png';
       }
     </div>
 
-    <div class="dock p" style="--x:413;--y:789;--w:453">
+    <div class="dock p" style="--x:413;--y:789;--w:453" data-figma="Frame 1814109461">
       <Pic src={finder} alt="" w={66} class="dock-finder" mobile="44px" inline />
       <div class="dock-tabs" role="tablist" aria-label="Case studies">
         {
@@ -151,7 +151,7 @@ import grid from '../../assets/case/grid.png';
   /* ---------- calendar widget ---------- */
   .calendar {
     height: calc(202 * var(--u));
-    padding: calc(25 * var(--u)) calc(16 * var(--u)) 0 calc(17 * var(--u));
+    padding: calc(22 * var(--u)) calc(16 * var(--u)) 0 calc(17 * var(--u));
     border-radius: calc(28 * var(--u));
     background: #fff;
     line-height: 1.21;
@@ -171,7 +171,7 @@ import grid from '../../assets/case/grid.png';
   }
 
   .cal-event {
-    margin-top: calc(20 * var(--u));
+    margin-top: calc(16 * var(--u));
     padding-left: calc(11 * var(--u));
     border-left: calc(3 * var(--u)) solid var(--cal-red);
   }
@@ -280,8 +280,9 @@ import grid from '../../assets/case/grid.png';
     display: none;
   }
 
+  /* Figma: the 571px-wide preview sits 3px under the chrome with 77px side margins */
   .win-body {
-    padding: 0 calc(74 * var(--u)) 0 calc(76 * var(--u));
+    padding: calc(3 * var(--u)) calc(77 * var(--u)) calc(15 * var(--u));
     transition: opacity 0.2s ease;
   }
 
@@ -389,7 +390,7 @@ import grid from '../../assets/case/grid.png';
       display: flex;
       flex-direction: column;
       align-items: center;
-      padding: 64px 16px 48px;
+      padding: var(--sec-y) var(--pad-x) calc(var(--sec-y) * 0.75);
       isolation: isolate;
     }
 
@@ -410,7 +411,7 @@ import grid from '../../assets/case/grid.png';
     }
 
     .projects-h {
-      font-size: clamp(60px, 16vw, 96px);
+      font-size: var(--display);
       line-height: 1;
     }
 

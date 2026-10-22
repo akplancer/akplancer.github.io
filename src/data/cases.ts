@@ -8,6 +8,9 @@ import dockFilters from '../assets/home/dock-filters.png';
 
 export interface CaseStudy {
   slug: string;
+  /** exact Figma frame name and node id this page is built from (file "portfolio projects", Page 1) */
+  figmaFrame: string;
+  figmaNode: string;
   href: string;
   /** name in the desktop window's footer bar and dock tooltip */
   name: string;
@@ -27,9 +30,11 @@ export interface CaseStudy {
 export const cases: CaseStudy[] = [
   {
     slug: 'referral',
+    figmaFrame: 'refrreral case study',
+    figmaNode: '709:13811',
     href: '/work/referral/',
-    name: 'Referral-Led growth',
-    title: 'Referral-Led growth',
+    name: 'Refferal-Led growth',
+    title: 'Refferal-Led growth',
     lead: 'Building a referral loop that contributed to ~ ',
     highlight: '30% of user acquisition',
     accent: '#cb30e0',
@@ -43,6 +48,8 @@ export const cases: CaseStudy[] = [
   },
   {
     slug: 'onboarding',
+    figmaFrame: 'Onboarding case study',
+    figmaNode: '1016:1724',
     href: '/work/onboarding/',
     name: 'Onboarding Case Study',
     title: 'Onboarding Case Study',
@@ -58,8 +65,10 @@ export const cases: CaseStudy[] = [
   },
   {
     slug: 'filter-and-search',
+    figmaFrame: 'filter and search case study',
+    figmaNode: '1021:1988',
     href: '/work/filter-and-search/',
-    name: 'Filter & search',
+    name: 'Filter & search case studies',
     title: 'Filter & search case studies',
     lead: 'Redesigned algo discovery ~ ',
     highlight: '20% increase in activation within the first 5 minutes.',

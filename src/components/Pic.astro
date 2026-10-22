@@ -19,6 +19,8 @@ interface Props {
   inline?: boolean;
   /** encoder quality; lower it for large grainy backgrounds */
   quality?: number;
+  /** e.g. data-figma="<layer name>" */
+  [key: `data-${string}`]: string | undefined;
 }
 
 const {
@@ -33,6 +35,7 @@ const {
   style = '',
   inline = false,
   quality = 75,
+  ...rest
 } = Astro.props;
 // 1x and 2x of the design width, plus a mobile size; never upscale past the source.
 const widths = [...new Set([Math.round(w * 0.6), w, Math.round(w * 1.5), w * 2].map((n) => Math.min(n, src.width)))];
@@ -53,4 +56,5 @@ const sizes = `(min-width: 1024px) ${((w / 1280) * 100).toFixed(2)}vw, ${mobile}
   loading={eager ? 'eager' : 'lazy'}
   fetchpriority={eager ? 'high' : 'auto'}
   decoding="async"
+  {...rest}
 />

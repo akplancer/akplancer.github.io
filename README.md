@@ -10,12 +10,23 @@ content re-flows into a mobile-friendly layout.
 
 ## Pages
 
-| URL | What it is | Figma frame |
-| --- | --- | --- |
-| `/` | Home — hero, about, *Projects* desktop, Procreate gallery, *Let’s connect* | `Portfolio- cover` |
-| `/work/referral/` | Case study: Referral-led growth | `refrreral case study` |
-| `/work/onboarding/` | Case study: Onboarding (first 60 seconds) | `Onboarding case study` |
-| `/work/filter-and-search/` | Case study: Filter & search for algo discovery | `filter and search case study` |
+Only these four frames on **Page 1** of the Figma file are part of the site — other pages and frames
+in the file are working material and are not implemented.
+
+| URL | What it is | Figma frame (exact name) | Node |
+| --- | --- | --- | --- |
+| `/` | Home — hero, about, *Projects* desktop, Procreate gallery, *Let’s connect* | `Portfolio- cover` | `562:1338` |
+| `/work/referral/` | Case study: Refferal-Led growth | `refrreral case study` | `709:13811` |
+| `/work/onboarding/` | Case study: Onboarding Case Study | `Onboarding case study` | `1016:1724` |
+| `/work/filter-and-search/` | Case study: Filter & search case studies | `filter and search case study` | `1021:1988` |
+
+Every page carries its frame in the markup (`data-figma-frame` / `data-figma-node`), and major
+sections/images carry the Figma layer they come from (`data-figma="Frame 1814109461"` etc.), so any
+element can be traced back to Figma from the browser's inspector.
+
+**Copy is exactly as written in Figma**, including its spelling (e.g. “Refferal-Led growth”,
+“A sneak peak into my procreate”). Where Figma applies *Case: Title case*, the source text is kept as
+typed and the `.title-case` / `.cs-label` classes apply `text-transform: capitalize`.
 
 On the home page, the **Projects** section is a Mac-style desktop: clicking an app in the dock
 switches which case study the browser window previews, and clicking the window opens it.
@@ -50,7 +61,8 @@ npm run preview   # serve dist/ locally to check the production build
     ├── components/
     │   ├── Pic.astro              # responsive image placed at Figma coordinates (AVIF + WebP)
     │   ├── home/                  # HeroAbout, Projects, Procreate, Connect
-    │   └── case/                  # CaseHero, Objective (starred chips), Scatter (art + labels)
+    │   └── case/                  # CaseHero, Objective (starred chips), Scatter (art + labels),
+    │                              # Shot (a phone screen with its italic caption)
     ├── data/
     │   ├── site.ts                # name, email, LinkedIn, résumé link
     │   └── cases.ts               # case-study titles, colours, hero art, dock icons
@@ -90,6 +102,7 @@ When adding something to a page, copy its X / Y / W from Figma’s properties pa
 | Change the email, LinkedIn or résumé | `src/data/site.ts` (résumé file lives in `public/`) |
 | Change a case study’s title, result line or colour | `src/data/cases.ts` |
 | Edit case-study text | `src/pages/work/<case>.astro` |
+| Edit a screen caption | the `lines={[…]}` of that `<Shot>` in `src/pages/work/<case>.astro` (one entry per Figma line) |
 | Edit the home page sections | `src/components/home/*.astro` |
 | Replace an image | overwrite the PNG in `src/assets/…` with the same name (export from Figma at 2×) |
 | Add a new case study | add an entry to `src/data/cases.ts` (+ dock icon), then a page in `src/pages/work/` using the `Case` layout |
@@ -109,6 +122,15 @@ When adding something to a page, copy its X / Y / W from Figma’s properties pa
 - Everything below the first screen is lazy-loaded; the hero image loads with high priority and has a
   placeholder colour while it downloads.
 - Typical transfer for the home page: **~0.35 MB** for the first screen on a phone, **~0.6 MB** on desktop.
+
+## Testing
+
+Layout was verified against fresh 1× exports of the four frames:
+- **Desktop parity:** every page rendered at 1280 px wide in Chromium and WebKit, then pixel-diffed against
+  Figma and every text line's position compared (all within 0–2 px).
+- **Responsiveness:** 12 viewports from 320 px phones to 1920 px desktops (plus touch tablets) in
+  Chromium and WebKit (Safari's engine), checking horizontal overflow, overlapping text, off-screen
+  text, image loading and tap-target size.
 - Fonts (Inter, Fasthand) are self-hosted via Fontsource — no external requests.
 
 ### Regenerating assets from Figma

@@ -1,6 +1,5 @@
 ---
 import Pic from '../Pic.astro';
-import { site } from '../../data/site';
 import tree from '../../assets/home/hero-tree.png';
 import dog from '../../assets/home/dog.png';
 import avatar from '../../assets/home/avatar.png';
@@ -9,11 +8,11 @@ import gridAbout from '../../assets/home/grid-about.png';
 
 ---
 
-<section class="stage top" style="--h:1629" aria-label="Introduction">
+<section class="stage top" style="--h:1629" aria-label="Introduction" data-figma="Portfolio- cover › hero + about">
   <div class="hero desk-contents">
-    <Pic src={tree} alt="" x={0} y={-1} w={1280} class="tree" mobile="100vw" quality={55} eager />
+    <Pic src={tree} alt="" x={0} y={-1} w={1280} class="tree" mobile="100vw" quality={55} eager data-figma="Untitled_Artwork 113 1" />
 
-    <nav class="nav p" style="--x:138;--y:48;--w:1003" aria-label="Main">
+    <nav class="nav p" style="--x:138;--y:48;--w:1003" aria-label="Main" data-figma="Frame 1814109455 + Frame 1814109469">
       <a href="#top" class="avatar-link" aria-label="Akanksha Pandey — home">
         <Pic src={avatar} alt="" w={67} class="avatar" mobile="50px" eager inline />
       </a>
@@ -30,11 +29,11 @@ import gridAbout from '../../assets/home/grid-about.png';
     </nav>
 
     <div class="intro desk-contents">
-      <p class="name p" style="--x:402.5;--y:337;--w:475">
-        <span class="script">{site.name}</span>
-        <span class="tag">{site.role}</span>
+      <p class="name p" style="--x:402.5;--y:337;--w:475" data-figma="Frame 1814109459">
+        <span class="script title-case">akanksha pandey</span>
+        <span class="tag">Product Designer</span>
       </p>
-      <h1 class="tagline p" style="--x:245;--y:406;--w:790">Telling Stories Through Design</h1>
+      <h1 class="tagline title-case p" style="--x:245;--y:406;--w:790">Telling stories through design</h1>
     </div>
 
     <Pic src={dog} alt="" x={747} y={689} w={302} class="dog" mobile="46vw" eager />
@@ -51,7 +50,7 @@ import gridAbout from '../../assets/home/grid-about.png';
       class="photo"
       mobile="min(62vw, 300px)"
     />
-    <h2 class="about-h p" style="--x:485;--y:964;--w:616">A little<br />about me</h2>
+    <h2 class="about-h p" style="--x:485;--y:964;--w:616" data-figma="Frame 1814109460">A little<br />about me</h2>
     <p class="bio p" style="--x:515;--y:1248;--w:433">
       I’ve been an art kid for as long as I can remember, always finding joy in creating things and seeing the world a
       little differently. I love the little details that make ordinary things interesting. I’ve also always been
@@ -94,7 +93,7 @@ import gridAbout from '../../assets/home/grid-about.png';
     align-items: center;
     justify-content: space-between;
     height: calc(86 * var(--u));
-    padding: 0 calc(61 * var(--u)) 0 calc(48 * var(--u));
+    padding: 0 calc(64 * var(--u)) 0 calc(48 * var(--u));
     border-radius: calc(43 * var(--u));
     background: rgb(255 255 255 / 0.5);
     -webkit-backdrop-filter: blur(6px);
@@ -126,6 +125,19 @@ import gridAbout from '../../assets/home/grid-about.png';
     text-decoration: none;
   }
 
+  /* touch screens at desktop size: enlarge the hit area to >=44px without moving anything */
+  @media (pointer: coarse) and (min-width: 1024px) {
+    .links a {
+      position: relative;
+    }
+
+    .links a::after {
+      content: '';
+      position: absolute;
+      inset: -14px -10px;
+    }
+  }
+
   .links a:not(.chat):hover {
     text-decoration: underline;
     text-underline-offset: 0.25em;
@@ -137,7 +149,7 @@ import gridAbout from '../../assets/home/grid-about.png';
     border-radius: 999px;
     background: var(--pink);
     font-weight: 400;
-    box-shadow: 0 calc(2 * var(--u)) calc(4 * var(--u)) rgb(0 0 0 / 0.18);
+    box-shadow: 0 calc(2 * var(--u)) calc(4 * var(--u)) rgb(0 0 0 / 0.25);
     transition: transform 0.2s ease;
   }
 
@@ -168,7 +180,7 @@ import gridAbout from '../../assets/home/grid-about.png';
     font-size: calc(18 * var(--u));
     font-weight: 600;
     line-height: 1;
-    box-shadow: 0 calc(2 * var(--u)) calc(4 * var(--u)) rgb(0 0 0 / 0.18);
+    box-shadow: 0 calc(2 * var(--u)) calc(4 * var(--u)) rgb(0 0 0 / 0.25);
   }
 
   .tagline {
@@ -181,14 +193,29 @@ import gridAbout from '../../assets/home/grid-about.png';
   }
 
   /* ---------- about ---------- */
+  /* Figma layer order: grid (bottom) < hero artwork < dog / photo */
+  .top :global(.about-grid) {
+    z-index: 0;
+  }
+
+  .top :global(.tree) {
+    z-index: 1;
+  }
+
+  .top :global(.dog) {
+    z-index: 2;
+  }
+
   .top :global(.photo) {
     z-index: 3;
   }
 
+  /* Figma stacks one 128px-tall text box per line with -24px between them: a 104px line pitch */
   .about-h {
+    padding-top: calc(12 * var(--u));
     font-size: calc(106 * var(--u));
     font-weight: 500;
-    line-height: 1.21;
+    line-height: calc(104 / 106);
     letter-spacing: -0.04em;
   }
 
@@ -231,7 +258,7 @@ import gridAbout from '../../assets/home/grid-about.png';
       align-items: center;
       justify-content: center;
       min-height: min(100svh, 760px);
-      padding: 120px 20px 150px;
+      padding: 120px var(--pad-x) 150px;
       text-align: center;
       isolation: isolate;
     }
@@ -406,7 +433,7 @@ import gridAbout from '../../assets/home/grid-about.png';
       display: flex;
       flex-direction: column;
       align-items: center;
-      padding: 0 24px 96px;
+      padding: 0 var(--pad-x) var(--sec-y);
       isolation: isolate;
     }
 
@@ -428,13 +455,15 @@ import gridAbout from '../../assets/home/grid-about.png';
     .about-h {
       align-self: stretch;
       margin: 40px 0 0;
-      font-size: clamp(48px, 13vw, 84px);
-      line-height: 1.05;
+      padding-top: 0;
+      font-size: var(--display);
+      line-height: 1;
     }
 
     .bio {
       position: relative;
       align-self: stretch;
+      max-width: 34em;
       margin: 44px 22px 0;
       font-size: 17px;
       line-height: 1.65;

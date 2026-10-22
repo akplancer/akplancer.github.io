@@ -112,10 +112,18 @@ await compose('referral/hero.png', [40, 340, 1000, 640], [
 ]);
 await copy('referral/23_image 5201673.png', 'referral/palms-w.png');
 await copy('referral/28_image 5201513.png', 'referral/challenges.png');
-await crop(R752, 'referral/screen-landing.png', 120, 8624, 536, 1072);
-await crop(R752, 'referral/screen-how-it-works.png', 856, 8608, 560, 1424);
-await crop(R752, 'referral/screen-contacts.png', 168, 10296, 496, 1432);
-await crop(R752, 'referral/screen-wallet.png', 168, 12088, 496, 2053);
+// Screens section (Figma re-export of 22 Oct 2026, _figma/referral2/): captioned frames are
+// cropped below their caption; captions are set as live text in the page.
+const R2 = (f) => `referral2/${f}`;
+await crop(R2('31_Frame 1814111172.png'), 'referral/screen-landing.png', 0, 104, 539, 1105);
+await crop(R2('32_Frame 1814111173.png'), 'referral/screen-how-it-works.png', 0, 96, 562, 1428);
+await crop(R2('33_Frame 1814111174.png'), 'referral/screen-contacts-synced.png', 0, 112, 485, 1426);
+await crop(R2('44_Frame 1814111176.png'), 'referral/screen-full-contacts.png', 0, 176, 560, 1106);
+await crop(R2('05_Group 1410104752.png'), 'referral/screen-referred-progress.png', 1728, 10376, 488, 2059);
+await copy(R2('41_image 5201683.png'), 'referral/screen-wallet.png');
+await copy(R2('42_image 5201724.png'), 'referral/screen-manage-plans.png');
+await copy(R2('43_image 5201726.png'), 'referral/screen-payment.png');
+await copy(R2('40_Vector 7564.png'), 'referral/bracket.png');
 
 // Onboarding
 await compose('onboarding/hero.png', [40, 340, 1000, 640], [
@@ -125,13 +133,13 @@ await compose('onboarding/hero.png', [40, 340, 1000, 640], [
 ]);
 await copy('onboarding/16_image 5201677.png', 'onboarding/challenges.png');
 const onb = {
-  'screen-splash': '24_image 5201684', 'screen-phone': '25_image 5201686',
-  'screen-language': '26_image 5201688', 'screen-experience': '27_image 5201700',
-  'screen-exit': '28_image 5201690', 'screen-buys-sells': '29_image 5201692',
-  'screen-backtested': '30_image 5201694', 'screen-nse': '31_image 5201696',
-  'screen-welcome': '32_image 5201698',
+  'screen-splash': '40_image 5201684', 'screen-phone': '41_image 5201686',
+  'screen-language': '42_image 5201688', 'screen-experience': '24_image 5201700',
+  'screen-exit': '25_image 5201690', 'screen-buys-sells': '26_image 5201692',
+  'screen-backtested': '27_image 5201694', 'screen-nse': '28_image 5201696',
+  'screen-welcome': '29_image 5201698',
 };
-for (const [k, v] of Object.entries(onb)) await copy(`onboarding/${v}.png`, `onboarding/${k}.png`);
+for (const [k, v] of Object.entries(onb)) await copy(`onboarding2/${v}.png`, `onboarding/${k}.png`);
 
 // Filter & search — drops are 0-width strokes in Figma, redrawn here as SVG
 const drops = [
@@ -160,12 +168,11 @@ await compose('filter/hero.png', [40, 340, 1080, 640], [
   { src: 'filter/06_image 5201716.png', x: 949, y: 582 },
 ]);
 const fil = {
-  'screen-all': '20_image 5201704', 'screen-investment': '21_image 5201708', 'screen-trading': '22_image 5201710',
-  'filters-all': '23_Filters', 'filters-investment': '24_Filters-1', 'filters-trading': '25_Filters-2',
-  'sort-sheet': '26_Bottom Navigation',
+  'screen-all': '24_image 5201704', 'screen-investment': '25_image 5201708', 'screen-trading': '26_image 5201710',
+  'filters-all': '27_Filters', 'filters-investment': '28_Filters-1', 'filters-trading': '29_Filters-2',
+  'sort-sheet': '30_Bottom Navigation', bracket: '52_Vector 7564',
 };
-for (const [k, v] of Object.entries(fil)) await copy(`filter/${v}.png`, `filter/${k}.png`);
-await copy('onboarding/36_Vector 7562.png', 'onboarding/arrow.png');
+for (const [k, v] of Object.entries(fil)) await copy(`filter2/${v}.png`, `filter/${k}.png`);
 
 // ---------- favicon + social preview (public/) ----------
 await sharp(raw('cover/04_Frame 1814109469.png')).extract({ left: 0, top: 0, width: 134, height: 140 })

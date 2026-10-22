@@ -5,7 +5,7 @@ import Objective from '../../components/case/Objective.astro';
 import Scatter from '../../components/case/Scatter.astro';
 import { caseBySlug } from '../../data/cases';
 import challenges from '../../assets/onboarding/challenges.png';
-import arrow from '../../assets/onboarding/arrow.png';
+import Shot from '../../components/case/Shot.astro';
 import splash from '../../assets/onboarding/screen-splash.png';
 import phone from '../../assets/onboarding/screen-phone.png';
 import language from '../../assets/onboarding/screen-language.png';
@@ -20,36 +20,54 @@ const study = caseBySlug('onboarding');
 
 const sameBody =
   'I brought the core value proposition forward so users could understand what Returns Wealth offers before exploring the app.';
-// Blob positions/sizes from the Figma frame
+// Blob shapes from the Figma frame; the text in each row shares one baseline in Figma,
+// so text offsets (tt = top, tl = left of a 400px centred column) are measured separately.
 const decisions = [
-  { t: '1. Lead with the product', x: 88, y: 3943, w: 566, h: 299, r: '58% 42% 50% 50% / 48% 44% 56% 52%' },
-  { t: '2. Understand user intent early', x: 690, y: 3939, w: 495, h: 321, r: '40% 60% 46% 54% / 38% 54% 46% 62%' },
-  { t: '3. Make education easier to consume', x: 111, y: 4289, w: 521, h: 337, r: '52% 48% 60% 40% / 42% 50% 50% 58%' },
-  { t: '4. Build confidence before activation', x: 690, y: 4296, w: 509, h: 320, r: '46% 54% 42% 58% / 56% 40% 60% 44%' },
+  { t: '1. Lead with the product', x: 88, y: 3943, w: 566, h: 299, tt: 75, tl: 78, r: '58% 42% 50% 50% / 48% 44% 56% 52%' },
+  { t: '2. Understand user intent early', x: 690, y: 3939, w: 495, h: 321, tt: 79, tl: 49.5, r: '40% 60% 46% 54% / 38% 54% 46% 62%' },
+  { t: '3. Make education easier to consume', x: 111, y: 4289, w: 521, h: 337, tt: 92, tl: 56.5, r: '52% 48% 60% 40% / 42% 50% 50% 58%' },
+  { t: '4. Build confidence before activation', x: 690, y: 4296, w: 509, h: 320, tt: 85, tl: 49.5, r: '46% 54% 42% 58% / 56% 40% 60% 44%' },
 ];
 
 const steps = [
   ['1. Sign up', 'Register using an email address or phone number.'],
   ['2. Answer questions', 'Share information about market experience, investment budget, and user intent.'],
   ['3. Understand algos', 'Learn what algos do and how automated trading works.'],
-  ['4. Build confidence', 'Access relevant information about strategies, credibility, and user control.'],
-  ['5. Discover algos', 'Explore strategies that may align with the user’s needs.'],
-  ['6. Activate', 'Move toward the next step with greater clarity.'],
+  ['4. Discover algos', "Explore strategies that may align with the user's needs."],
+  ['5. Build confidence', 'Access relevant information about strategies, credibility, and user control.'],
+];
+
+// Figma numbers every line of this list, including the lead-in and closing sentences.
+// Journey boxes and arrows, measured from the Figma frame (design px)
+const journey = [
+  { x: 90, y: 4880, w: 308, h: 138 },
+  { x: 880, y: 4880, w: 310, h: 162 },
+  { x: 332, y: 5086, w: 310, h: 138 },
+  { x: 884, y: 5096, w: 308, h: 138 },
+  { x: 328, y: 5330, w: 310, h: 162 },
+];
+const arrows = [
+  { x: 399, y: 4920, w: 479 },
+  { x: 89, y: 5128, w: 241 },
+  { x: 643, y: 5128, w: 238 },
+  { x: 89, y: 5377, w: 231 },
 ];
 
 const questions = [
+  'Before designing the screens, I considered a few key questions:',
   'What should users understand before exploring algos?',
   'How can I explain automated trading without technical jargon?',
   'What questions would help me understand user intent?',
   'How can those answers make algo discovery more relevant?',
   'What information would help build trust?',
   'How can I move users from understanding the product to taking action?',
+  'These questions shaped the direction of the onboarding experience.',
 ];
 ---
 
 <Case
   study={study}
-  height={7880}
+  height={8040}
   description="Onboarding case study for Returns Wealth: simplifying the first 60 seconds of a complex algo-investing product."
 >
   <section class="brief p" style="--x:63;--y:1009;--w:1006">
@@ -85,10 +103,10 @@ const questions = [
         ['Build confidence in the platform', 448],
       ],
       [
-        ['Feel that the product is relevant to them', 529],
+        ['feel that the product is relevant to them', 529],
         ['Understand user intent after sign-up.', 513],
       ],
-      [['Move naturally toward their first algo activation', 646]],
+      [['move naturally toward their first algo activation', 646]],
     ]}
   />
 
@@ -99,20 +117,19 @@ const questions = [
     imgBox={[419, 2358, 436]}
     alt="Illustration: a cow pushing a huge boulder up a hill"
     labels={[
-      ['Simplifying Education', 176, 2391],
-      ['Building Trust', 769, 2481],
-      ['Understanding User Intent', 183, 2598],
-      ['Reducing Friction', 865, 2598],
+      ['Simplifying education', 176, 2391],
+      ['Building trust', 769, 2481],
+      ['Understanding user intent', 183, 2598],
+      ['Reducing friction', 865, 2598],
     ]}
   />
 
   <section class="block p" style="--x:64;--y:2846;--w:1107">
     <h2 class="cs-h">Questions I started with</h2>
-    <p class="cs-body cs-strong">Before designing the screens, I considered a few key questions:</p>
+    <p class="cs-body cs-strong">Before designing the screens, I started with questions like:</p>
     <ol class="cs-list">
       {questions.map((q) => <li>{q}</li>)}
     </ol>
-    <p class="cs-body after-list">These questions shaped the direction of the onboarding experience.</p>
   </section>
 
   <section class="band insight p" style="--x:0;--y:3340;--w:1280">
@@ -124,7 +141,7 @@ const questions = [
         What it does for them.
       </p>
       <p class="cs-body">
-        So instead of explaining trading systems, the experience focused on simple outcomes.<br />
+        So instead of explaining trading systems, the experience focused on simple outcomes<br />
         Users need clarity about the product and relevance to their needs.
       </p>
     </div>
@@ -138,73 +155,50 @@ const questions = [
   <ul class="decisions desk-contents" role="list">
     {
       decisions.map((d) => (
-        <li class="blob p" style={`--x:${d.x};--y:${d.y};--w:${d.w};--bh:${d.h};border-radius:${d.r}`}>
-          <h3>{d.t}</h3>
-          <p>{sameBody}</p>
+        <li class="blob p" style={`--x:${d.x};--y:${d.y};--w:${d.w};--bh:${d.h};--tt:${d.tt};--tl:${d.tl};border-radius:${d.r}`}>
+          <div class="blob-text">
+            <h3>{d.t}</h3>
+            <p>{sameBody}</p>
+          </div>
         </li>
       ))
     }
   </ul>
 
-  <p class="cs-body cs-center p" style="--x:200;--y:4745;--w:880">
+  <p class="cs-body cs-center p" style="--x:230;--y:4745;--w:880">
     The journey connected sign-up, intent gathering, product education, and algo discovery into a more guided experience.
   </p>
 
-  <ol class="journey p" style="--x:88;--y:4879;--w:1104" role="list">
-    <li class="row">
-      <div class="step"><h3>{steps[0][0]}</h3><p>{steps[0][1]}</p></div>
-      <span class="arr" aria-hidden="true"></span>
-      <div class="step"><h3>{steps[1][0]}</h3><p>{steps[1][1]}</p></div>
-    </li>
-    <li class="row">
-      <span class="arr lead" style="--aw:242" aria-hidden="true"></span>
-      <div class="step"><h3>{steps[2][0]}</h3><p>{steps[2][1]}</p></div>
-      <span class="arr" aria-hidden="true"></span>
-      <div class="step"><h3>{steps[3][0]}</h3><p>{steps[3][1]}</p></div>
-    </li>
-    <li class="row">
-      <span class="arr lead" style="--aw:233" aria-hidden="true"></span>
-      <div class="step"><h3>{steps[4][0]}</h3><p>{steps[4][1]}</p></div>
-      <span class="arr" aria-hidden="true"></span>
-      <div class="step"><h3>{steps[5][0]}</h3><p>{steps[5][1]}</p></div>
-    </li>
+  <ol class="journey desk-contents" role="list">
+    {
+      journey.map((j, i) => (
+        <li class="step p" style={`--x:${j.x};--y:${j.y};--w:${j.w};--bh:${j.h}`}>
+          <h3>{steps[i][0]}</h3>
+          <p>{steps[i][1]}</p>
+        </li>
+      ))
+    }
   </ol>
+  {arrows.map((a) => <span class="arr p desk-only" style={`--x:${a.x};--y:${a.y};--w:${a.w}`} aria-hidden="true" />)}
 
   <section class="screens desk-contents" aria-label="Key onboarding screens">
     <h2 class="cs-body cs-strong p" style="--x:62;--y:5608;--w:600">Key Onboarding Screens</h2>
 
     <div class="shots desk-contents">
-      <Pic src={splash} alt="Splash screen: “Wealth on autopilot, managed by experts”" x={46} y={5676} w={241} class="shot" mobile="46vw" />
-      <Pic src={arrow} alt="" x={285} y={5880} w={57} class="desk-only" />
-      <p class="note p" style="--x:345;--y:5850;--w:223">Splash screen — introduce automated algo trading</p>
-      <Pic src={phone} alt="Log in / sign up screen asking for a phone number, with keypad" x={694} y={5676} w={263} class="shot" mobile="46vw" />
-      <Pic src={arrow} alt="" x={936} y={5881} w={57} class="desk-only" />
-      <p class="note p" style="--x:998;--y:5848;--w:224">Enable access via email, Google, or phone number.</p>
-    </div>
-
-    <div class="shots desk-contents">
-      <Pic src={language} alt="Choose your language: English or Hinglish" x={47} y={6211} w={240} class="shot" mobile="46vw" />
-      <Pic src={experience} alt="Describe your investing experience — three options" x={694} y={6211} w={250} class="shot" mobile="46vw" />
-    </div>
-
-    <div class="shots desk-contents">
-      <Pic src={exit} alt="Education screen: “Don’t miss the right exit.”" x={46} y={6768} w={271} class="shot" mobile="46vw" />
-      <Pic src={buysSells} alt="Education screen: “It Buys & Sells trades for you”" x={304} y={6768} w={240} class="shot" mobile="46vw" />
-      <Pic src={backtested} alt="Education screen: “25+ backtested algos — pick one that fits your goals & risk.”" x={555} y={6768} w={245} class="shot" mobile="46vw" />
-      <Pic src={nse} alt="Trust screen: “Powered by an NSE registered algo vendor.”" x={824} y={6768} w={244} class="shot" mobile="46vw" />
-    </div>
-
-    <div class="shots desk-contents">
-      <Pic src={welcome} alt="Welcome aboard: “Let’s automate your investing journey.” with a testimonial" x={48} y={7282} w={253} class="shot" mobile="46vw" />
+      <Shot src={splash} alt="Splash screen: “Wealth on autopilot, managed by experts”" x={40} y={5779} w={291} lines={['splash screen-Introduce', 'automated algo trading']} cx={183} top={5693} />
+      <Shot src={phone} alt="Log in / sign up screen asking for a phone number, with keypad" x={487} y={5790} w={279} lines={['Enable access via email,', 'Google, or phone number.']} cx={620} top={5692} />
+      <Shot src={language} alt="Choose your language: English or Hinglish" x={924} y={5790} w={284} lines={['Allow users to choose', 'their preferred language', 'for better accessibility.']} cx={1062.5} top={5693} />
+      <Shot src={experience} alt="Describe your investing experience — three options" x={35} y={6585} w={292} lines={['Understand user goals through a', 'one-question-at-a-time', 'approach.']} cx={190} top={6498} />
+      <Shot src={exit} alt="Education screen: “Don’t miss the right exit.”" x={472} y={6574} w={317} lines={['Used an animated storytelling', 'experience after the loading screen to', 'explain automated algo trading.']} cx={631} top={6498} />
+      <Shot src={buysSells} alt="Education screen: “It Buys & Sells trades for you”" x={926} y={6572} w={285} lines={['Explained what automated', 'trading algorithms do.']} cx={1079} top={6498} />
+      <Shot src={backtested} alt="Education screen: “25+ backtested algos — pick one that fits your goals & risk.”" x={40} y={7400} w={281} lines={['Guide users through', 'activation and algo selection.']} cx={177.5} top={7312} />
+      <Shot src={nse} alt="Trust screen: “Powered by an NSE registered algo vendor.”" x={483} y={7388} w={278} lines={['Establish credibility by highlighting our', 'registration with the National Stock', 'Exchange']} cx={640} top={7306} />
+      <Shot src={welcome} alt="Welcome aboard: “Let’s automate your investing journey.” with a testimonial" x={913} y={7388} w={291} lines={["Showcase the brand's vision and", 'user testimonials to build credibility', 'and confidence.']} cx={1065.5} top={7312} />
     </div>
   </section>
 </Case>
 
 <style>
-  .after-list {
-    margin-top: calc(14 * var(--u));
-  }
-
   .insight {
     height: calc(333 * var(--u));
     padding: calc(28 * var(--u)) 0 0 calc(63 * var(--u));
@@ -213,16 +207,14 @@ const questions = [
   .insight .callout {
     width: calc(1100 * var(--u));
     min-height: calc(273 * var(--u));
-    padding-top: calc(20 * var(--u));
+    padding-top: calc(3 * var(--u));
+    padding-left: calc(27 * var(--u));
   }
 
   .insight .cs-body + .cs-body {
     margin-top: calc(32 * var(--u));
   }
 
-  .sol-sub {
-    margin-top: calc(30 * var(--u));
-  }
 
   .decisions {
     margin: 0;
@@ -231,15 +223,20 @@ const questions = [
   }
 
   .blob {
+    height: calc(var(--bh) * var(--u));
+    background: #fdf0ec;
+    text-align: center;
+  }
+
+  .blob-text {
+    position: absolute;
+    top: calc(var(--tt) * var(--u));
+    left: calc(var(--tl) * var(--u));
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
-    gap: calc(16 * var(--u));
-    height: calc(var(--bh) * var(--u));
-    padding: 0 calc(70 * var(--u));
-    background: #fdf0ec;
-    text-align: center;
+    gap: calc(25 * var(--u));
+    width: calc(400 * var(--u));
   }
 
   .blob h3 {
@@ -256,30 +253,20 @@ const questions = [
   }
 
   .journey {
-    display: flex;
-    flex-direction: column;
-    gap: calc(48 * var(--u));
     margin: 0;
     padding: 0;
     list-style: none;
   }
 
-  .row {
-    display: flex;
-    align-items: flex-start;
-  }
-
   .step {
-    flex: none;
-    width: calc(312 * var(--u));
-    min-height: calc(139 * var(--u));
+    min-height: calc(var(--bh) * var(--u));
     padding: calc(22 * var(--u)) calc(20 * var(--u));
     border-radius: calc(6 * var(--u));
     background: var(--acc-bg);
   }
 
   .step h3 {
-    margin: 0 0 calc(14 * var(--u));
+    margin: 0 0 calc(20 * var(--u));
     font-size: calc(20 * var(--u));
     font-weight: 600;
     color: var(--ink-2);
@@ -290,36 +277,29 @@ const questions = [
     line-height: 1.5;
   }
 
+  /* arrow: 8px shaft + 40×44 head, as drawn in Figma */
   .arr {
-    position: relative;
-    flex: 1;
-    height: calc(7 * var(--u));
-    margin: calc(60 * var(--u)) calc(2 * var(--u)) 0 calc(-2 * var(--u));
-    background: var(--acc);
+    height: calc(44 * var(--u));
   }
 
-  .arr.lead {
-    flex: none;
-    width: calc(var(--aw) * var(--u));
-    margin-left: 0;
+  .arr::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: calc(38 * var(--u));
+    top: calc(18 * var(--u));
+    height: calc(8 * var(--u));
+    background: var(--acc);
   }
 
   .arr::after {
     content: '';
     position: absolute;
-    right: calc(-4 * var(--u));
-    top: 50%;
+    right: 0;
+    top: 0;
     border-left: calc(40 * var(--u)) solid var(--acc);
     border-top: calc(22 * var(--u)) solid transparent;
     border-bottom: calc(22 * var(--u)) solid transparent;
-    transform: translateY(-50%);
-  }
-
-  .note {
-    font-size: calc(18 * var(--u));
-    font-style: italic;
-    font-weight: 500;
-    line-height: calc(32 / 18);
   }
 
   @media (max-width: 1023.98px) {
@@ -337,9 +317,6 @@ const questions = [
       margin-top: 14px;
     }
 
-    .sol-sub {
-      margin-top: 10px;
-    }
 
     .decisions {
       display: grid;
@@ -348,8 +325,13 @@ const questions = [
 
     .blob {
       height: auto;
-      gap: 8px;
       padding: 36px 34px;
+    }
+
+    .blob-text {
+      position: static;
+      gap: 8px;
+      width: auto;
     }
 
     .blob h3 {
@@ -362,19 +344,13 @@ const questions = [
     }
 
     .journey {
+      display: flex;
+      flex-direction: column;
       gap: 26px;
     }
 
-    .row {
-      display: contents;
-    }
-
-    .arr {
-      display: none;
-    }
-
     .step {
-      width: auto;
+      position: relative;
       min-height: 0;
       padding: 16px 18px;
       border-left: 4px solid var(--acc);
@@ -389,11 +365,7 @@ const questions = [
       font-size: 15px;
     }
 
-    .journey .step {
-      position: relative;
-    }
-
-    .journey .step::before {
+    .step + .step::before {
       content: '↓';
       position: absolute;
       top: -25px;
@@ -403,22 +375,10 @@ const questions = [
       color: var(--acc);
     }
 
-    .journey .row:first-child .step:first-child::before {
-      content: none;
-    }
-
     .screens {
       display: flex;
       flex-direction: column;
       gap: 24px;
-    }
-
-    .shots > .note {
-      order: 2;
-      width: 48%;
-      font-size: 15px;
-      line-height: 1.5;
-      color: #444;
     }
   }
 </style>

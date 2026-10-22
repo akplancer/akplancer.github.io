@@ -24,27 +24,30 @@ const gallery = [
 ];
 ---
 
-<section class="stage procreate" style="--h:2548" aria-labelledby="procreate-h">
+<section class="stage procreate" style="--h:2548" aria-labelledby="procreate-h" data-figma="Portfolio- cover › procreate">
   <div class="faces desk-contents">
     <Pic src={facesA} alt="" x={40} y={43} w={351} class="face-a" mobile="38vw" />
     <Pic src={facesB} alt="Character sketches: round red-haired faces with different expressions" x={380} y={53} w={586} class="face-b" mobile="56vw" />
   </div>
-  <p class="note note-faces script p" style="--x:838;--y:105;--w:353">
-    I love character design! In my free time, I enjoy playing around with random shapes and turning them into fun, quirky
-    little characters, each with its own personality and expression.
+  <p class="note note-faces script p" style="--x:838;--y:105;--w:353" data-figma="II love character design! …">
+    <span class="nl">II love character design! In my free time, I</span>{' '}
+    <span class="nl">enjoy playing around with random shapes and</span>{' '}
+    <span class="nl">turning them into fun, quirky little characters,</span>{' '}
+    <span class="nl">each with its own personality and expression.</span>
   </p>
   <svg class="arrow p desk-only" style="--x:640;--y:132;--w:190" viewBox="0 0 190 34" aria-hidden="true">
     <path d="M6 28 C 60 10, 120 8, 182 16" />
     <path d="M174 10 L183 16 L174 22" />
   </svg>
 
-  <h2 class="sneak p" id="procreate-h" style="--x:83;--y:522;--w:640">A sneak<br />peek into<br />my procreate</h2>
+  <h2 class="sneak p" id="procreate-h" style="--x:83;--y:522;--w:640" data-figma="Frame 1814109470">A sneak<br />peak into<br />my procreate</h2>
 
   <div class="jewels desk-contents">
     <Pic src={disco} alt="A pink and orange disco ball hanging on a string" x={67} y={847} w={251} mobile="34vw" />
     <Pic src={nest} alt="A crow perched on a nest of gems: a ruby, an emerald, a pearl, a ring and a gold pendant" x={694} y={777} w={549} mobile="58vw" />
-    <p class="note note-jewels script p" style="--x:308;--y:922;--w:353">
-      I’ve worked as a jewellery designer before, and my love for gems and jewellery is real!
+    <p class="note note-jewels script p" style="--x:308;--y:922;--w:353" data-figma="I’ve worked as a jewellery designer before, …">
+      <span class="nl">I’ve worked as a jewellery designer before, and</span>{' '}
+      <span class="nl">my love for gems and jewellery is real!</span>
     </p>
     <svg class="arrow p desk-only" style="--x:620;--y:964;--w:115" viewBox="0 0 115 34" aria-hidden="true">
       <path d="M108 20 C 80 12, 40 12, 9 18" />
@@ -58,10 +61,16 @@ const gallery = [
 </section>
 
 <style>
+  /* Figma: Fasthand 18, auto line height (33px pitch), 4% tracking; line breaks kept as in Figma */
   .note {
-    font-size: calc(20 * var(--u));
-    line-height: 1.8;
+    font-size: calc(18 * var(--u));
+    line-height: calc(33 / 18);
     letter-spacing: 0.04em;
+  }
+
+  .nl {
+    display: block;
+    white-space: nowrap;
   }
 
   .arrow {
@@ -76,10 +85,12 @@ const gallery = [
     stroke-linejoin: round;
   }
 
+  /* 104px line pitch, as Figma stacks 128px line boxes with -24px gaps */
   .sneak {
+    padding-top: calc(12 * var(--u));
     font-size: calc(106 * var(--u));
     font-weight: 500;
-    line-height: 1.21;
+    line-height: calc(104 / 106);
     letter-spacing: -0.04em;
   }
 
@@ -96,13 +107,14 @@ const gallery = [
       display: flex;
       flex-direction: column;
       gap: 28px;
-      padding: 88px 20px 96px;
+      padding: var(--sec-y) var(--pad-x);
     }
 
     .sneak {
       order: -1;
-      font-size: clamp(46px, 12.5vw, 84px);
-      line-height: 1.05;
+      padding-top: 0;
+      font-size: var(--display);
+      line-height: 1;
     }
 
     .faces {
@@ -123,9 +135,14 @@ const gallery = [
     .note {
       max-width: 340px;
       margin: 0 auto;
-      font-size: 19px;
-      line-height: 1.7;
+      font-size: 18px;
+      line-height: 1.75;
       text-align: center;
+    }
+
+    .nl {
+      display: inline;
+      white-space: normal;
     }
 
     .jewels {

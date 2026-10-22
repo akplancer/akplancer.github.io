@@ -6,10 +6,16 @@ import Scatter from '../../components/case/Scatter.astro';
 import { caseBySlug } from '../../data/cases';
 import palms from '../../assets/referral/palms-w.png';
 import challenges from '../../assets/referral/challenges.png';
+import Shot from '../../components/case/Shot.astro';
 import landing from '../../assets/referral/screen-landing.png';
 import howItWorks from '../../assets/referral/screen-how-it-works.png';
-import contacts from '../../assets/referral/screen-contacts.png';
+import contactsSynced from '../../assets/referral/screen-contacts-synced.png';
+import fullContacts from '../../assets/referral/screen-full-contacts.png';
+import referredProgress from '../../assets/referral/screen-referred-progress.png';
 import wallet from '../../assets/referral/screen-wallet.png';
+import managePlans from '../../assets/referral/screen-manage-plans.png';
+import payment from '../../assets/referral/screen-payment.png';
+import bracket from '../../assets/referral/bracket.png';
 
 const study = caseBySlug('referral');
 
@@ -28,7 +34,7 @@ const questions = [
 
 <Case
   study={study}
-  height={7540}
+  height={7960}
   description="Referral-led growth for Returns: designing a complete refer-and-earn experience that contributed to ~30% of user acquisition."
 >
   <section class="brief p" style="--x:63;--y:1009;--w:1006">
@@ -47,11 +53,11 @@ const questions = [
     <h2 class="cs-h cs-center p" style="--x:0;--y:53;--w:1280">It has to answer three W’s instantly</h2>
     <Pic src={palms} alt="" x={500} y={104} w={280} class="palms" mobile="160px" />
     <ul class="ws-labels desk-contents" role="list">
-      <li class="cs-label p" style="--x:251;--y:157;--w:240">Why Should I Refer?</li>
-      <li class="cs-label p" style="--x:378;--y:313;--w:200">What Do I Get?</li>
-      <li class="cs-label p" style="--x:780;--y:270;--w:220">When Do I Get It?</li>
+      <li class="cs-label p" style="--x:251;--y:157;--w:240">Why should I refer?</li>
+      <li class="cs-label p" style="--x:378;--y:313;--w:200">What do I get?</li>
+      <li class="cs-label p" style="--x:780;--y:270;--w:220">When do I get it?</li>
     </ul>
-    <p class="cs-body cs-center p" style="--x:0;--y:447;--w:1280">
+    <p class="cs-body cs-center nowrap p" style="--x:221;--y:447;--w:848">
       *While still keeping the reward logic financially sustainable for the business.
     </p>
   </section>
@@ -65,7 +71,7 @@ const questions = [
         ['Motivates users to invite friends', 448],
       ],
       [['Clearly communicates when and why rewards unlock', 689]],
-      [['Keeps users informed about referral progress', 594]],
+      [['keeps users informed about referral progress', 594]],
       [['Encourages rewards to flow back into product usage and subscriptions', 892]],
     ]}
   />
@@ -77,15 +83,15 @@ const questions = [
     imgBox={[480, 2518, 315]}
     alt="Illustration: the boy straining to lift a heavy dumbbell"
     labels={[
-      ['Reward Complexity', 352, 2596],
-      ['Tracking Progress', 712, 2639],
-      ['Building Trust', 241, 2715],
-      ['Preventing Low-Quality Referrals', 796, 2758],
-      ['Different User States', 334, 2834],
+      ['Reward complexity', 352, 2596],
+      ['Tracking progress', 712, 2639],
+      ['Building trust', 241, 2715],
+      ['Preventing low-Quality referrals', 796, 2758],
+      ['Differnt user states', 334, 2834],
     ]}
   />
 
-  <section class="block p" style="--x:60;--y:3026;--w:1107">
+  <section class="block p" style="--x:63;--y:3026;--w:1107">
     <h2 class="cs-h">Questions I started with</h2>
     <p class="cs-body cs-strong">Before designing the screens, I started with questions like:</p>
     <ol class="cs-list">
@@ -107,9 +113,9 @@ const questions = [
   </section>
 
   <section class="solution desk-contents">
-    <div class="p cs-center" style="--x:0;--y:3984;--w:1280">
+    <div class="p cs-center" style="--x:369;--y:3984;--w:478">
       <h2 class="cs-h">The solution</h2>
-      <p class="cs-body sol-sub">There wasn’t a straight line to the solution.</p>
+      <p class="cs-body sol-sub">There wasn't a straight line to the solution.</p>
     </div>
     <ul class="ovals p" style="--x:76;--y:4131;--w:1127;gap:calc(135 * var(--u))" role="list">
       <li class="oval" style="--ow:262;--oh:75">Market research</li>
@@ -124,26 +130,88 @@ const questions = [
   </section>
 
   <section class="screens desk-contents" aria-label="Key screens">
-    <p class="cs-body cs-strong p" style="--x:60;--y:4515;--w:1015">
+    <p class="cs-body cs-strong nowrap p" style="--x:60;--y:4515;--w:1015">
       Selected screens highlighting the key moments across the Referrer and Referee journeys.
     </p>
 
     <div class="shots desk-contents">
-      <p class="shot-label p" style="--x:65;--y:4601;--w:800">1. Landing Page (If clicked on Learn more)</p>
-      <Pic src={landing} alt="Invite a friend & Earn landing screen" x={59} y={4669} w={268} class="shot" mobile="46vw" />
-      <Pic src={howItWorks} alt="“How it works?” bottom sheet explaining the referral steps and rewards" x={427} y={4661} w={280} class="shot" mobile="46vw" />
-    </div>
-
-    <div class="shots desk-contents">
-      <p class="shot-label p" style="--x:65;--y:5425;--w:800">2. Contact list on the landing page</p>
-      <Pic src={contacts} alt="Referral landing page with the contact list and Invite buttons" x={83} y={5505} w={248} class="shot" mobile="46vw" />
-      <p class="shot-note p" style="--x:492;--y:6066;--w:300">List view for contacts</p>
-    </div>
-
-    <div class="shots desk-contents">
-      <p class="shot-label p" style="--x:65;--y:6296;--w:1000">3. Home page when invitations are sent and referrals are at different stages</p>
-      <Pic src={wallet} alt="Referral home page showing Wealth Coins earned and invited people at different stages" x={83} y={6401} w={248} class="shot" mobile="46vw" />
-      <p class="shot-note p" style="--x:544;--y:6976;--w:300">Wallet page</p>
+      <Shot src={landing} alt="Invite a friend & Earn landing screen" x={60} y={4658} w={270} lines={['Landing Page']} cx={195} top={4606} />
+      <Shot
+        src={howItWorks}
+        alt="“How it works?” bottom sheet explaining the referral steps and the rewards table"
+        x={445}
+        y={4654}
+        w={281}
+        lines={['When clicked on How it works']}
+        cx={585.5}
+        top={4606}
+      />
+      <Shot
+        src={contactsSynced}
+        alt="Landing page with the synced contact list and Invite buttons"
+        x={866}
+        y={4662}
+        w={243}
+        lines={['when contact is synced']}
+        cx={987.5}
+        top={4606}
+      />
+      <Shot
+        src={fullContacts}
+        alt="Pop-up: “You've earned 10,415 Wealth Coins” with an upgrade prompt"
+        x={443}
+        y={5537}
+        w={280}
+        lines={['Full contact view list when', 'clicked on view more']}
+        cx={583}
+        top={5449}
+      />
+      <Shot
+        src={referredProgress}
+        alt="Landing page showing Wealth Coins earned and the people you've invited with their reward status"
+        x={864}
+        y={5545}
+        w={244}
+        lines={['Landing page showing referred', 'friends & their referral progress.']}
+        cx={996}
+        top={5449}
+      />
+      <Pic src={bracket} alt="" x={819} y={5999} w={42} class="desk-only" />
+      <p class="cap p span-all" style="--x:566;--y:6162;--w:258">
+        <span class="cap-line">This section will appear once</span>{' '}
+        <span class="cap-line">the user has started earning</span>{' '}
+        <span class="cap-line">wealth coins.</span>
+      </p>
+      <Shot
+        src={wallet}
+        alt="Wealth coins wallet showing a balance of 5,000 and ways to use the coins"
+        x={57}
+        y={6457}
+        w={278}
+        lines={['Wallet page displaying the', 'current Wealth Coin balance.']}
+        cx={204}
+        top={6366}
+      />
+      <Shot
+        src={managePlans}
+        alt="Manage your Plans screen with a 1,333 Wealth Coins redeem banner"
+        x={446}
+        y={6457}
+        w={286}
+        lines={['Nudge for the user to redeem', 'their referral reward']}
+        cx={579}
+        top={6366}
+      />
+      <Shot
+        src={payment}
+        alt="Payment page applying Wealth Coins as a discount"
+        x={53}
+        y={7250}
+        w={307}
+        lines={['Referral rewards can be', 'redeemed as discounts on the', 'payment page.']}
+        cx={213.5}
+        top={7138}
+      />
     </div>
   </section>
 </Case>
@@ -165,10 +233,6 @@ const questions = [
   .insight .callout {
     width: calc(1000 * var(--u));
     min-height: calc(150 * var(--u));
-  }
-
-  .sol-sub {
-    margin-top: calc(24 * var(--u));
   }
 
   .ws-labels,
@@ -196,7 +260,7 @@ const questions = [
       display: flex;
       flex-wrap: wrap;
       justify-content: center;
-      gap: 4px 20px;
+      gap: 10px 22px;
       margin: 0;
       padding: 0;
       list-style: none;
@@ -217,14 +281,10 @@ const questions = [
       gap: 18px;
     }
 
-    .sol-sub {
-      margin-top: 10px;
-    }
-
     .screens {
       display: flex;
       flex-direction: column;
-      gap: 36px;
+      gap: 24px;
     }
   }
 </style>
