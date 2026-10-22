@@ -51,17 +51,13 @@
   letter-spacing: -0.005em;
 }
 
-.cs-list.plain {
-  padding-left: 0;
-  list-style: none;
-}
-
 .cs-label {
   font-family: var(--font-script);
   font-size: calc(24 * var(--u));
   line-height: 1.8;
   letter-spacing: 0.04em;
   color: var(--script-grey);
+  text-transform: capitalize; /* Figma "Case: Title case" */
   white-space: nowrap;
 }
 
@@ -74,11 +70,20 @@
 
 .brief .cs-h,
 .callout .cs-h {
-  margin-bottom: calc(26 * var(--u));
+  margin-bottom: calc(34 * var(--u));
 }
 
 .block .cs-h {
-  margin-bottom: calc(34 * var(--u));
+  margin-bottom: calc(37 * var(--u));
+}
+
+.block .cs-body + .cs-list {
+  margin-top: calc(4 * var(--u));
+}
+
+/* "The solution" sub-line */
+.sol-sub {
+  margin-top: calc(34 * var(--u));
 }
 
 /* full-width tinted band with an accent bar (Insight) */
@@ -98,20 +103,24 @@
   gap: calc(18 * var(--u));
 }
 
+/* Figma: each row is a 1084px "fill" frame with its chips spread to both edges */
+.chips {
+  width: calc(1084 * var(--u));
+}
+
 .chip-row {
   display: flex;
-  flex-wrap: wrap;
-  gap: calc(42 * var(--u));
+  justify-content: space-between;
 }
 
 .chip {
   display: flex;
   align-items: center;
-  gap: calc(12 * var(--u));
+  gap: calc(6 * var(--u));
   min-width: calc(var(--cw) * var(--u));
   min-height: calc(56.67 * var(--u));
   white-space: nowrap;
-  padding: calc(10 * var(--u)) calc(16 * var(--u)) calc(10 * var(--u)) calc(14 * var(--u));
+  padding: calc(6 * var(--u)) calc(16 * var(--u)) calc(13 * var(--u)) calc(14 * var(--u));
   background: var(--acc-bg);
   font-size: calc(24 * var(--u));
   line-height: calc(32 / 24);
@@ -142,15 +151,32 @@
   text-align: center;
 }
 
-/* screen captions */
-.shot-label {
-  font-size: calc(24 * var(--u));
-  line-height: calc(32 / 24);
+/* screen captions and side notes — Figma: Inter Italic 18/27, centred */
+.shot-fig {
+  margin: 0;
 }
 
-.shot-note {
-  font-size: calc(24 * var(--u));
-  line-height: calc(32 / 24);
+.cap {
+  font-size: calc(18 * var(--u));
+  font-style: italic;
+  line-height: calc(27 / 18);
+  letter-spacing: -0.002em;
+  text-align: center;
+}
+
+.cap-line {
+  display: block;
+  white-space: nowrap;
+}
+
+.cap .em {
+  font-weight: 500;
+}
+
+/* one empty line between paragraphs inside a caption */
+.cap-break {
+  display: block;
+  height: calc(27 * var(--u));
 }
 
 /* footer navigation */
@@ -169,6 +195,9 @@
 }
 
 .case-foot a {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35em;
   text-decoration: none;
 }
 
@@ -181,21 +210,36 @@
   color: var(--acc);
 }
 
+/* touch screens: keep links at least 44px tall without moving the layout */
+@media (pointer: coarse) {
+  .back,
+  .case-foot a {
+    position: relative;
+  }
+
+  .back::after,
+  .case-foot a::after {
+    content: '';
+    position: absolute;
+    inset: -16px -8px;
+  }
+}
+
 /* ---------- mobile / tablet ---------- */
 @media (max-width: 1023.98px) {
   .case .stage:not(.fixed) {
     display: flex;
     flex-direction: column;
-    gap: 44px;
-    padding: 0 20px 64px;
+    gap: var(--sec-gap);
+    padding: 0 var(--pad-x) 64px;
   }
 
   .cs-top {
     display: flex;
     flex-direction: column;
     gap: 22px;
-    margin: 0 -20px;
-    padding: 22px 20px 8px;
+    margin: 0 calc(-1 * var(--pad-x));
+    padding: 18px var(--pad-x) 8px;
     background-image:
       linear-gradient(#f1f1f1 1px, transparent 1px), linear-gradient(90deg, #f1f1f1 1px, transparent 1px);
     background-size: 44px 44px;
@@ -203,18 +247,23 @@
   }
 
   .back {
+    align-self: flex-start;
+    min-height: 44px;
     font-size: 15px;
+  }
+
+  .back::after {
+    content: none;
   }
 
   .cs-h {
     font-size: 23px;
+    line-height: 1.25;
   }
 
   .cs-body,
   .cs-list,
   .chip,
-  .shot-label,
-  .shot-note,
   .oval {
     font-size: 17px;
   }
@@ -227,6 +276,10 @@
     margin-top: 14px;
   }
 
+  .sol-sub {
+    margin-top: 10px;
+  }
+
   .cs-list {
     line-height: 1.6;
   }
@@ -237,7 +290,7 @@
 
   .cs-label {
     font-size: 21px;
-    line-height: 1.4;
+    line-height: 1.5;
   }
 
   .brief {
@@ -253,8 +306,8 @@
   }
 
   .band {
-    margin: 0 -20px;
-    padding: 32px 20px;
+    margin: 0 calc(-1 * var(--pad-x));
+    padding: 32px var(--pad-x);
   }
 
   .callout {
@@ -263,11 +316,17 @@
   }
 
   .chips {
+    width: auto;
+  }
+
+  .chips,
+  .chip-row {
     gap: 10px;
   }
 
   .chip-row {
-    gap: 10px;
+    flex-wrap: wrap;
+    justify-content: flex-start;
   }
 
   .chip {
@@ -296,50 +355,67 @@
     padding: 14px 24px;
   }
 
+  /* screens: two-column grid of captioned phones */
   .shots {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    align-items: start;
+    gap: 28px 16px;
+  }
+
+  .shot-fig {
     display: flex;
-    flex-wrap: wrap;
-    align-items: flex-start;
-    gap: 16px 4%;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
   }
 
-  .shots > :not(.pic),
-  .shots > .pic > img {
-    width: 48%;
-  }
-
-  .shots > .shot-note,
-  .shots > .shot-label {
+  .shot-fig img {
     width: 100%;
+    max-width: 260px;
   }
 
-  .shot-label {
-    font-weight: 500;
+  .cap {
+    font-size: 14px;
+    line-height: 1.45;
+    color: #333;
   }
 
-  .shot-note {
-    color: #444;
+  .cap-line {
+    display: inline;
+    white-space: normal;
+  }
+
+  .cap-break {
+    height: 8px;
+  }
+
+  .shots > .cap,
+  .shots > .span-all {
+    grid-column: 1 / -1;
   }
 
   .case-foot {
-    padding: 28px 20px 48px;
+    padding: 16px var(--pad-x) 40px;
     font-size: 16px;
+  }
+
+  .case-foot a {
+    min-height: 44px;
+  }
+
+  .case-foot a::after {
+    content: none;
   }
 }
 
 @media (min-width: 640px) and (max-width: 1023.98px) {
-  .case .stage:not(.fixed) {
-    padding-inline: 48px;
+  .shots {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 36px 24px;
   }
 
-  .cs-top,
-  .band {
-    margin-inline: -48px;
-    padding-inline: 48px;
-  }
-
-  .shots > :not(.pic),
-  .shots > .pic > img {
-    width: 30%;
+  .cap {
+    font-size: 15px;
   }
 }

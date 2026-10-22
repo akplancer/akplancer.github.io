@@ -19,6 +19,13 @@
   --chrome: #e4e4e4;
   --bg: #fff;
 
+  /* Shared mobile/tablet rhythm (desktop uses Figma coordinates instead). */
+  --pad-x: 20px;
+  --sec-y: 72px;
+  --sec-gap: 44px;
+  /* the four 106px Figma display headings share one size on small screens */
+  --display: clamp(46px, 12.5vw, 84px);
+
   /* Design unit. Mobile/tablet use a fixed px scale; desktop maps 1280 design px to the viewport (see below). */
   --u: 0.68px;
 }
@@ -91,6 +98,11 @@ ul {
   border: 0;
 }
 
+/* Figma "Case: Title case" — source text stays exactly as typed in Figma */
+.title-case {
+  text-transform: capitalize;
+}
+
 .script {
   font-family: var(--font-script);
   font-weight: 400;
@@ -112,6 +124,9 @@ main {
 @media (min-width: 640px) {
   :root {
     --u: 0.8px;
+    --pad-x: 48px;
+    --sec-y: 96px;
+    --sec-gap: 56px;
   }
 }
 
@@ -136,6 +151,11 @@ main {
 
   .desk-contents {
     display: contents;
+  }
+
+  /* single-line Figma text boxes: never wrap at desktop scale */
+  .nowrap {
+    white-space: nowrap;
   }
 
   .mobile-only {
