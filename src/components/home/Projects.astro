@@ -33,7 +33,7 @@ import grid from '../../assets/case/grid.png';
       <div class="chrome" aria-hidden="true">
         <span class="light red"></span><span class="light yellow"></span><span class="light green"></span>
         <span class="arrow">&larr;</span><span class="arrow">&rarr;</span>
-        <span class="url"><span class="url-bar"></span><span class="url-dot"></span><span class="url-dot"></span></span>
+        <span class="url">{cases.map(() => <span class="prog"><i></i></span>)}</span>
       </div>
       <div class="win-track">
       {
@@ -134,42 +134,59 @@ import grid from '../../assets/case/grid.png';
 
   layout(false);
 
-  // Auto-advance forever: referral -> onboarding -> filter -> referral ...
-  const INTERVAL = 3500;
-  let timer: number | undefined;
+  // Auto-advance forever (referral -> onboarding -> filter -> referral ...). The three bars in the
+  // window's address pill are the progress: finished ones are full, the current one fills up.
+  const INTERVAL = 4500;
+  const bars = [...document.querySelectorAll<HTMLElement>('.url .prog')];
   let visible = false;
-  const stop = () => {
-    window.clearInterval(timer);
-    timer = undefined;
+  let elapsed = 0;
+  let last = performance.now();
+  const paint = () =>
+    bars.forEach((b, i) => {
+      const p = i < index ? 1 : i === index ? Math.min(1, elapsed / INTERVAL) : 0;
+      b.style.setProperty('--p', String(p));
+      b.classList.toggle('on', i === index);
+      b.classList.toggle('done', i < index);
+    });
+  const reset = () => {
+    elapsed = 0;
+    paint();
   };
-  const start = () => {
-    stop();
-    if (!visible || document.hidden) return;
-    timer = window.setInterval(() => select(tabs[(index + 1) % n].dataset.case!), INTERVAL);
+  const tick = (now: number) => {
+    requestAnimationFrame(tick);
+    const dt = now - last;
+    last = now;
+    if (!visible || document.hidden) return; // the bar waits while the section is off screen
+    elapsed += dt;
+    if (elapsed >= INTERVAL) {
+      select(tabs[(index + 1) % n].dataset.case!);
+      elapsed = 0;
+    }
+    paint();
   };
   const section = document.querySelector('.projects');
   if (section && 'IntersectionObserver' in window) {
     new IntersectionObserver(
       (entries) => {
         visible = entries.some((e) => e.isIntersecting);
-        start();
       },
       { threshold: 0.3 },
     ).observe(section);
   }
-  document.addEventListener('visibilitychange', start);
+  paint();
+  requestAnimationFrame(tick);
 
   tabs.forEach((t, i) => {
     t.addEventListener('click', () => {
       select(t.dataset.case!);
-      start(); // restart the clock after a manual pick
+      reset(); // restart the progress after a manual pick
     });
     t.addEventListener('keydown', (e) => {
       const d = e.key === 'ArrowRight' ? 1 : e.key === 'ArrowLeft' ? -1 : 0;
       if (!d) return;
       e.preventDefault();
       select(tabs[(i + d + tabs.length) % tabs.length].dataset.case!, true);
-      start();
+      reset();
     });
   });
   // "Back to desktop" links come back with ?case=<slug>
@@ -177,6 +194,7 @@ import grid from '../../assets/case/grid.png';
   if (fromUrl) {
     select(fromUrl);
     layout(false);
+    reset();
   }
 </script>
 
@@ -302,7 +320,7 @@ import grid from '../../assets/case/grid.png';
     display: flex;
     align-items: center;
     justify-content: flex-end;
-    gap: calc(4 * var(--u));
+    gap: calc(6 * var(--u));
     width: calc(510 * var(--u));
     height: calc(22 * var(--u));
     margin-left: calc(6 * var(--u));
@@ -311,19 +329,40 @@ import grid from '../../assets/case/grid.png';
     background: #fff;
   }
 
-  .url-bar {
-    width: calc(18 * var(--u));
-    height: calc(5 * var(--u));
-    margin-right: calc(2 * var(--u));
-    border-radius: 3px;
+  /* upcoming: grey dot - shown already: black dot - current: bar that fills as the timer runs */
+  .prog {
+    --p: 0;
+    position: relative;
+    flex: none;
+    width: calc(6 * var(--u));
+    height: calc(6 * var(--u));
+    overflow: hidden;
+    border-radius: 999px;
+    background: #c9c9c9;
+    transition:
+      width 0.35s ease,
+      background-color 0.35s ease;
+  }
+
+  .prog.done {
     background: #111;
   }
 
-  .url-dot {
-    width: calc(6 * var(--u));
-    height: calc(6 * var(--u));
-    border-radius: 50%;
-    background: #c9c9c9;
+  .prog.on {
+    width: calc(30 * var(--u));
+  }
+
+  .prog i {
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    background: #111;
+    transform: scaleX(0);
+    transform-origin: 0 50%;
+  }
+
+  .prog.on i {
+    transform: scaleX(var(--p));
   }
 
   .win-track {
@@ -539,14 +578,13 @@ import grid from '../../assets/case/grid.png';
       padding-right: 10px;
     }
 
-    .url-bar {
-      width: 14px;
-      height: 4px;
-    }
-
-    .url-dot {
+    .prog {
       width: 5px;
       height: 5px;
+    }
+
+    .prog.on {
+      width: 22px;
     }
 
     .win-body {

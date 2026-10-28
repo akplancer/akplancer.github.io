@@ -78,7 +78,7 @@ export const cases: CaseStudy[] = [
     heroBox: [40, 340, 1080],
     heroAlt: 'Illustration: the Explore Algos screen with filter chips, and a girl sifting options through a colander.',
     dockIcon: dockFilters,
-    meta: ['UI/UX Designer', 'Figma', '2025'],
+    meta: ['UI/UX Designer', 'Figma', '2026'],
   },
 ];
 
