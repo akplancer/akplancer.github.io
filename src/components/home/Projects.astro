@@ -430,7 +430,21 @@ import grid from '../../assets/case/grid.png';
   }
 
   .win-open {
-    display: none;
+    display: inline-flex;
+    align-items: center;
+    gap: calc(6 * var(--u));
+    margin-left: auto;
+    padding: calc(7 * var(--u)) calc(16 * var(--u));
+    border-radius: 999px;
+    background: #111;
+    color: #fff;
+    font-size: calc(14 * var(--u));
+    font-weight: 600;
+    transition: transform 0.2s ease;
+  }
+
+  .win-content:hover .win-open {
+    transform: translateX(calc(3 * var(--u)));
   }
 
   .win-content:focus-visible {
