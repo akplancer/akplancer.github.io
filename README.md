@@ -25,7 +25,7 @@ sections/images carry the Figma layer they come from (`data-figma="Frame 1814109
 element can be traced back to Figma from the browser's inspector.
 
 **Copy is exactly as written in Figma**, including its spelling (e.g. “Refferal-Led growth”,
-“A sneak peak into my procreate”). Where Figma applies *Case: Title case*, the source text is kept as
+“A sneak peek into my procreate”). Where Figma applies *Case: Title case*, the source text is kept as
 typed and the `.title-case` / `.cs-label` classes apply `text-transform: capitalize`.
 
 On the home page, the **Projects** section is a Mac-style desktop: clicking an app in the dock

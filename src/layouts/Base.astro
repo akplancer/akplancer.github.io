@@ -36,5 +36,20 @@ const ogImage = new URL('/og.jpg', Astro.site);
         <slot />
       </div>
     </main>
+    <script>
+      // Light haptic tick, only in response to a real tap/click on something interactive
+      // (never from timers or the auto-advancing carousel). Supported where the browser exposes
+      // navigator.vibrate (Android); iOS Safari ignores it.
+      document.addEventListener(
+        'click',
+        (e) => {
+          if (!e.isTrusted || !(e.target instanceof Element)) return;
+          if (!e.target.closest('a[href], button, [role="tab"], [role="button"]')) return;
+          if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+          navigator.vibrate?.(10);
+        },
+        { passive: true },
+      );
+    </script>
   </body>
 </html>

@@ -111,6 +111,7 @@
 .chip-row {
   display: flex;
   justify-content: space-between;
+  column-gap: calc(42 * var(--u)); /* Figma lets a wide second chip overflow the 1084px row */
 }
 
 .chip {

@@ -15,6 +15,10 @@ import buysSells from '../../assets/onboarding/screen-buys-sells.png';
 import backtested from '../../assets/onboarding/screen-backtested.png';
 import nse from '../../assets/onboarding/screen-nse.png';
 import welcome from '../../assets/onboarding/screen-welcome.png';
+import blob4 from '../../assets/onboarding/blob-4.svg';
+import blob3 from '../../assets/onboarding/blob-3.svg';
+import blob2 from '../../assets/onboarding/blob-2.svg';
+import blob1 from '../../assets/onboarding/blob-1.svg';
 
 const study = caseBySlug('onboarding');
 
@@ -23,10 +27,10 @@ const sameBody =
 // Blob shapes from the Figma frame; the text in each row shares one baseline in Figma,
 // so text offsets (tt = top, tl = left of a 400px centred column) are measured separately.
 const decisions = [
-  { t: '1. Lead with the product', x: 88, y: 3943, w: 566, h: 299, tt: 75, tl: 78, r: '58% 42% 50% 50% / 48% 44% 56% 52%' },
-  { t: '2. Understand user intent early', x: 690, y: 3939, w: 495, h: 321, tt: 79, tl: 49.5, r: '40% 60% 46% 54% / 38% 54% 46% 62%' },
-  { t: '3. Make education easier to consume', x: 111, y: 4289, w: 521, h: 337, tt: 92, tl: 56.5, r: '52% 48% 60% 40% / 42% 50% 50% 58%' },
-  { t: '4. Build confidence before activation', x: 690, y: 4296, w: 509, h: 320, tt: 85, tl: 49.5, r: '46% 54% 42% 58% / 56% 40% 60% 44%' },
+  { t: '1. Lead with the product', x: 89.7, y: 3941.5, w: 566, h: 299.5, tt: 76.5, tl: 76.3, shape: blob1, rot: -2.69 },
+  { t: '2. Understand user intent early', x: 688.7, y: 3940, w: 496, h: 321, tt: 78, tl: 50.8, shape: blob2, rot: 0 },
+  { t: '3. Make education easier to consume', x: 109.7, y: 4289.9, w: 522.6, h: 335.6, tt: 91.1, tl: 57.8, shape: blob3, rot: 0 },
+  { t: '4. Build confidence before activation', x: 688.7, y: 4297, w: 508, h: 319, tt: 84, tl: 50.8, shape: blob4, rot: 0 },
 ];
 
 const steps = [
@@ -76,7 +80,7 @@ const questions = [
       Returns is an algo investing platform for retail users. As the product evolved, most new users were coming
       specifically to explore algos, but many did not fully understand how automated trading worked.
     </p>
-    <p class="cs-body">That made onboarding one of the most critical moments in the product.</p>
+    <p class="cs-body cs-strong">That made onboarding one of the most critical moments in the product.</p>
   </section>
 
   <section class="block p" style="--x:62;--y:1402;--w:1107">
@@ -155,7 +159,7 @@ const questions = [
   <ul class="decisions desk-contents" role="list">
     {
       decisions.map((d) => (
-        <li class="blob p" style={`--x:${d.x};--y:${d.y};--w:${d.w};--bh:${d.h};--tt:${d.tt};--tl:${d.tl};border-radius:${d.r}`}>
+        <li class="blob p" style={`--x:${d.x};--y:${d.y};--w:${d.w};--bh:${d.h};--tt:${d.tt};--tl:${d.tl};--shape:url(${d.shape.src});--rot:${d.rot}deg`}>
           <div class="blob-text">
             <h3>{d.t}</h3>
             <p>{sameBody}</p>
@@ -224,8 +228,18 @@ const questions = [
 
   .blob {
     height: calc(var(--bh) * var(--u));
-    background: #fdf0ec;
     text-align: center;
+    isolation: isolate;
+  }
+
+  /* organic shape exported from the Figma vectors */
+  .blob::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    background: var(--shape) center / 100% 100% no-repeat;
+    transform: rotate(var(--rot));
   }
 
   .blob-text {
@@ -235,7 +249,7 @@ const questions = [
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: calc(25 * var(--u));
+    gap: calc(24 * var(--u));
     width: calc(400 * var(--u));
   }
 
@@ -247,9 +261,10 @@ const questions = [
   }
 
   .blob p {
-    max-width: calc(400 * var(--u));
-    font-size: calc(16 * var(--u));
-    line-height: 1.5;
+    max-width: calc(398 * var(--u));
+    font-size: calc(18 * var(--u));
+    line-height: calc(24 / 18);
+    letter-spacing: -0.005em;
   }
 
   .journey {
@@ -324,6 +339,7 @@ const questions = [
     }
 
     .blob {
+      position: relative;
       height: auto;
       padding: 36px 34px;
     }

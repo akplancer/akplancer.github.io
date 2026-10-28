@@ -35,6 +35,7 @@ import grid from '../../assets/case/grid.png';
         <span class="arrow">&larr;</span><span class="arrow">&rarr;</span>
         <span class="url"><span class="url-bar"></span><span class="url-dot"></span><span class="url-dot"></span></span>
       </div>
+      <div class="win-track">
       {
         cases.map((c, i) => (
           <a
@@ -43,7 +44,9 @@ import grid from '../../assets/case/grid.png';
             id={`panel-${c.slug}`}
             role="tabpanel"
             aria-labelledby={`tab-${c.slug}`}
-            hidden={i !== 0}
+            data-rel={i === 0 ? '0' : i === 1 ? '1' : '-1'}
+            aria-hidden={i === 0 ? undefined : 'true'}
+            tabindex={i === 0 ? undefined : -1}
           >
             <div class="win-body">
               <div class="stage fixed" style="--h:847">
@@ -67,6 +70,7 @@ import grid from '../../assets/case/grid.png';
           </a>
         ))
       }
+      </div>
     </div>
 
     <div class="dock p" style="--x:413;--y:789;--w:453" data-figma="Frame 1814109461">
@@ -98,30 +102,82 @@ import grid from '../../assets/case/grid.png';
 
 <script>
   const tabs = [...document.querySelectorAll<HTMLButtonElement>('.dock-tab')];
-  const select = (slug: string, focus = false) => {
-    const tab = tabs.find((t) => t.dataset.case === slug);
-    if (!tab) return;
-    for (const t of tabs) {
-      const on = t === tab;
-      t.setAttribute('aria-selected', String(on));
-      t.tabIndex = on ? 0 : -1;
-      const panel = document.getElementById(t.getAttribute('aria-controls')!);
-      if (panel) panel.hidden = !on;
-    }
-    if (focus) tab.focus();
+  const panels = [...document.querySelectorAll<HTMLElement>('.win-content')];
+  const n = panels.length;
+  let index = 0;
+
+  // Each panel sits one slot left (-1), centre (0) or right (1) of the window and slides between them.
+  // A panel that wraps from far left to far right does so while off-screen, without animating.
+  const layout = (animate: boolean) => {
+    panels.forEach((p, i) => {
+      const r = (i - index + n) % n;
+      const rel = r === 0 ? '0' : r === 1 ? '1' : '-1';
+      const jump = (p.dataset.rel === '-1' && rel === '1') || (p.dataset.rel === '1' && rel === '-1');
+      p.classList.toggle('no-anim', !animate || jump);
+      p.dataset.rel = rel;
+      const on = rel === '0';
+      p.toggleAttribute('inert', !on);
+      p.setAttribute('aria-hidden', String(!on));
+    });
   };
+  const select = (slug: string, focus = false) => {
+    const next = tabs.findIndex((t) => t.dataset.case === slug);
+    if (next < 0) return;
+    index = next;
+    layout(true);
+    tabs.forEach((t, i) => {
+      t.setAttribute('aria-selected', String(i === index));
+      t.tabIndex = i === index ? 0 : -1;
+    });
+    if (focus) tabs[index].focus();
+  };
+
+  layout(false);
+
+  // Auto-advance forever: referral -> onboarding -> filter -> referral ...
+  const INTERVAL = 3500;
+  let timer: number | undefined;
+  let visible = false;
+  const stop = () => {
+    window.clearInterval(timer);
+    timer = undefined;
+  };
+  const start = () => {
+    stop();
+    if (!visible || document.hidden) return;
+    timer = window.setInterval(() => select(tabs[(index + 1) % n].dataset.case!), INTERVAL);
+  };
+  const section = document.querySelector('.projects');
+  if (section && 'IntersectionObserver' in window) {
+    new IntersectionObserver(
+      (entries) => {
+        visible = entries.some((e) => e.isIntersecting);
+        start();
+      },
+      { threshold: 0.3 },
+    ).observe(section);
+  }
+  document.addEventListener('visibilitychange', start);
+
   tabs.forEach((t, i) => {
-    t.addEventListener('click', () => select(t.dataset.case!));
+    t.addEventListener('click', () => {
+      select(t.dataset.case!);
+      start(); // restart the clock after a manual pick
+    });
     t.addEventListener('keydown', (e) => {
       const d = e.key === 'ArrowRight' ? 1 : e.key === 'ArrowLeft' ? -1 : 0;
       if (!d) return;
       e.preventDefault();
       select(tabs[(i + d + tabs.length) % tabs.length].dataset.case!, true);
+      start();
     });
   });
   // "Back to desktop" links come back with ?case=<slug>
   const fromUrl = new URLSearchParams(location.search).get('case');
-  if (fromUrl) select(fromUrl);
+  if (fromUrl) {
+    select(fromUrl);
+    layout(false);
+  }
 </script>
 
 <style>
@@ -270,14 +326,38 @@ import grid from '../../assets/case/grid.png';
     background: #c9c9c9;
   }
 
+  .win-track {
+    display: grid;
+    overflow: hidden;
+  }
+
   .win-content {
+    grid-area: 1 / 1;
     display: block;
     color: inherit;
     text-decoration: none;
+    transition:
+      transform 0.8s cubic-bezier(0.65, 0, 0.25, 1),
+      visibility 0s linear 0.8s;
   }
 
-  .win-content[hidden] {
-    display: none;
+  .win-content[data-rel='0'] {
+    visibility: visible;
+    transition-delay: 0s;
+  }
+
+  .win-content[data-rel='1'] {
+    transform: translateX(100%);
+    visibility: hidden;
+  }
+
+  .win-content[data-rel='-1'] {
+    transform: translateX(-100%);
+    visibility: hidden;
+  }
+
+  .win-content.no-anim {
+    transition: none;
   }
 
   /* Figma: the 571px-wide preview sits 3px under the chrome with 77px side margins */
